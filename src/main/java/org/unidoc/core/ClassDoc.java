@@ -5,12 +5,33 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ClassDoc {
 
-    String author() default "";
+    /**
+     *
+     * @return author name
+     */
+    String author() default ""; // @author in javadoc
 
-    String description() default "";
+    /**
+     *
+     * @return description of class
+     */
+    String value() default ""; // description of class
+
+    /**
+     *
+     * @return version
+     */
+    String version() default ""; // @version
+
+    /**
+     *
+     * @return true if it's deprecated
+     */
+    boolean deprecated() default false; // @deprecated
 
 }

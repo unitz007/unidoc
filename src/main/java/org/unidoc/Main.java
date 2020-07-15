@@ -1,11 +1,10 @@
 package org.unidoc;
 
+import org.unidoc.core.ClassDoc;
+
+@ClassDoc(author = "Dinneya Charles", version = "1.0.0", value = "")
 public class Main {
 
-    /**
-     *
-     * @param args command-line arguments
-     */
     public static void main(String... args) {
 
     }

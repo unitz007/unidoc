@@ -105,7 +105,7 @@
             <property name="scope" value="public" />
         </module>
         <module name="JavadocStyle">
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, METHOD_DEF" />
+            <property name="tokens" value="CLASS_DEF, METHOD_DEF" />
             <property name="scope" value="public" />
         </module>
         <module name="MissingJavadocMethod"/>

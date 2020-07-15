@@ -8,5 +8,18 @@
     <artifactId>unidoc</artifactId>
     <version>1.0.0</version>
 
+    <properties>
+        <source>11</source>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 
 </project>
