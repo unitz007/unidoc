@@ -1,4 +1,4 @@
-package org.unidoc.core;
+package org.unidoc;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

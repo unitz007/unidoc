@@ -1,4 +1,4 @@
-package org.unidoc.core;
+package org.unidoc;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,12 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-public @interface ParameterDoc {
+@Target(ElementType.FIELD)
+public @interface FieldDoc {
 
     /**
      *
-     * @return description of parameter
+     * @return description of field
      */
-    String value() default ""; // description
+    String value() default "";
 }

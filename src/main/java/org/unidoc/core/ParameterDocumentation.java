@@ -1,6 +1,6 @@
-package org.unidoc.api;
+package org.unidoc.core;
 
-import org.unidoc.core.ParameterDoc;
+import org.unidoc.ParameterDoc;
 
 import java.lang.reflect.Parameter;
 

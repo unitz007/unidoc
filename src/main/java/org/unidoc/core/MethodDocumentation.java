@@ -1,6 +1,6 @@
-package org.unidoc.api;
+package org.unidoc.core;
 
-import org.unidoc.core.MethodDoc;
+import org.unidoc.MethodDoc;
 
 import java.lang.reflect.Method;
 

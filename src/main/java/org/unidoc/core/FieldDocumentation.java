@@ -1,6 +1,6 @@
-package org.unidoc.api;
+package org.unidoc.core;
 
-import org.unidoc.core.FieldDoc;
+import org.unidoc.FieldDoc;
 
 import java.lang.reflect.Field;
 

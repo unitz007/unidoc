@@ -3,15 +3,11 @@ package org.unidocTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.unidoc.core.ClassDoc;
-import org.unidoc.core.FieldDoc;
+import org.unidoc.ClassDoc;
+import org.unidoc.FieldDoc;
 
 import java.io.*;
-import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
 
 @ClassDoc(author = "charles", value = "cgadsf", version = "1.0.0")
 public class UniDocTest {

@@ -2,7 +2,7 @@ package org.unidocTest.api;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.unidoc.api.ParameterDocumentation;
+import org.unidoc.core.ParameterDocumentation;
 import org.unidocTest.TestClass;
 
 import java.lang.reflect.Method;

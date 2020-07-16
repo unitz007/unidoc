@@ -3,7 +3,7 @@ package org.unidocTest.api;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.unidoc.api.FieldDocumentation;
+import org.unidoc.core.FieldDocumentation;
 import org.unidocTest.TestClass;
 
 import java.lang.reflect.Field;

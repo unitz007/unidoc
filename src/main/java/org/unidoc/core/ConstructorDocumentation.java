@@ -1,6 +1,6 @@
-package org.unidoc.api;
+package org.unidoc.core;
 
-import org.unidoc.core.ConstructorDoc;
+import org.unidoc.ConstructorDoc;
 
 import java.lang.reflect.Constructor;
 

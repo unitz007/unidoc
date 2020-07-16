@@ -1,10 +1,10 @@
 package org.unidocTest;
 
-import org.unidoc.core.ClassDoc;
-import org.unidoc.core.ConstructorDoc;
-import org.unidoc.core.FieldDoc;
-import org.unidoc.core.MethodDoc;
-import org.unidoc.core.ParameterDoc;
+import org.unidoc.ClassDoc;
+import org.unidoc.ConstructorDoc;
+import org.unidoc.FieldDoc;
+import org.unidoc.MethodDoc;
+import org.unidoc.ParameterDoc;
 
 @ClassDoc("Test class")
 public class TestClass {

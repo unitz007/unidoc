@@ -2,8 +2,7 @@ package org.unidocTest.api;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.unidoc.api.ConstructorDocumentation;
-import org.unidoc.core.ConstructorDoc;
+import org.unidoc.core.ConstructorDocumentation;
 import org.unidocTest.TestClass;
 
 import java.lang.reflect.Constructor;

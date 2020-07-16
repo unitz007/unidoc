@@ -1,4 +1,4 @@
-package org.unidoc.core;
+package org.unidoc;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,12 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface FieldDoc {
+@Target(ElementType.CONSTRUCTOR)
+public @interface ConstructorDoc {
 
     /**
      *
-     * @return description of field
+     * @return description of constructor
      */
-    String value() default "";
+    String value() default ""; // description
 }

@@ -2,7 +2,7 @@ package org.unidocTest.api;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.unidoc.api.ClassDocumentation;
+import org.unidoc.core.ClassDocumentation;
 import org.unidocTest.TestClass;
 
 public class ClassDocumentationSpec {

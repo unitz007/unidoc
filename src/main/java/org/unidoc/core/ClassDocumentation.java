@@ -1,6 +1,6 @@
-package org.unidoc.api;
+package org.unidoc.core;
 
-import org.unidoc.core.ClassDoc;
+import org.unidoc.ClassDoc;
 
 public class ClassDocumentation {
 
