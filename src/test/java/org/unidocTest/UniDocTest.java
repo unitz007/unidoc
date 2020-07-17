@@ -8,6 +8,7 @@ import org.unidoc.FieldDoc;
 
 import java.io.*;
 import java.nio.file.FileSystems;
+import java.util.Scanner;
 
 @ClassDoc(author = "charles", value = "cgadsf", version = "1.0.0")
 public class UniDocTest {
@@ -26,25 +27,24 @@ public class UniDocTest {
     @Test
     void testLineNumber() throws FileNotFoundException {
         String pkg = this.getClass().getPackage().getName();
-//        String className;
-//        String dir = System.getProperty("user.dir") + ".java";
-//        File fileReader = new File(dir);
-//        Scanner scanner = new Scanner(fileReader);
-//        int lineNumber = 1;
-//        while (scanner.hasNextLine()) {
-//                if (scanner.nextLine().startsWith("public class")) {
-//                    break;
-//                } else {
-//                    lineNumber++;
-//
-//                }
-//
-//        }
-//        Assertions.assertEquals(3, lineNumber);
+        String className;
+        String dir = System.getProperty("user.dir") + ".java";
+        File fileReader = new File(dir);
+        Scanner scanner = new Scanner(fileReader);
+        int lineNumber = 1;
+        while (scanner.hasNextLine()) {
+                if (scanner.nextLine().startsWith("public class")) {
+                    break;
+                } else {
+                    lineNumber++;
+
+                }
+
+        }
+        Assertions.assertEquals(3, lineNumber);
         System.out.println(FileSystems.getDefault().getPath("").toAbsolutePath());
 
     }
-
 
 
 }

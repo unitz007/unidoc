@@ -98,7 +98,7 @@
         </module>
         <module name="JavadocType">
             <property name="scope" value="public"/>
-            <property name="authorFormat" value="&lt;a href=\b+mailto:+[a-z.0-9]+@+[a-z].[a-z]\b&gt;([A-Z][a-z]{3,} )([A-Z][a-z]{3,} )?([A-Z][a-z]{3,})&lt;/a&gt;" />
+<!--            <property name="authorFormat" value="&lt;a href=\b+mailto:+^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$\b&gt;([A-Z][a-z]{3,} )([A-Z][a-z]{3,} )?([A-Z][a-z]{3,})&lt;/a&gt;" />-->
             <property name="versionFormat" value="\d.\d.\d"/>
         </module>
         <module name="JavadocVariable">
