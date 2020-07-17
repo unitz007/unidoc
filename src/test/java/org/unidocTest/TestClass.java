@@ -22,6 +22,7 @@ public class TestClass {
 
     }
 
+
     @ConstructorDoc("test constructor with param")
     public TestClass(@ParameterDoc("test parameter") String test) {
 
@@ -31,7 +32,7 @@ public class TestClass {
      *
      * @return
      */
-    @MethodDoc(value = "test method")
+    @MethodDoc(value = "test method", returns = "string value")
     public String getTest() {
         return test;
     }

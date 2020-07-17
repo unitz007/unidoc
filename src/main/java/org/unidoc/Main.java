@@ -2,9 +2,6 @@ package org.unidoc;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.FieldDeclaration;
-import com.github.javaparser.ast.visitor.ModifierVisitor;
-import com.github.javaparser.ast.visitor.Visitable;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import org.unidoc.parse.FieldParser;
 import org.unidoc.parse.MethodParser;
@@ -23,12 +20,9 @@ public class Main {
      * @throws FileNotFoundException exception
      */
     public static void main(String... args) throws FileNotFoundException {
-        CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
-        VoidVisitorAdapter<Void> field = new FieldParser();
+        File file = new File(FILE_PATH);
+        CompilationUnit cu = StaticJavaParser.parse(file);
+        VoidVisitorAdapter<Void> field = new MethodParser();
         field.visit(cu, null);
-        field = new MethodParser();
-        field.visit(cu, null);
-
-        System.out.println(cu);
     }
 }

@@ -11,14 +11,14 @@ import java.util.List;
 
 public class MethodDocumentationSpec {
 
-    private final MethodDocumentation doc = new MethodDocumentation();
-
-    @Test
-    void checkAnnotated() {
-        List<Method> methods = Arrays.asList(TestClass.class.getDeclaredMethods());
-        methods.forEach(method -> {
-            Assertions.assertTrue(doc.isAnnotated(method));
-        });
-    }
+//    private final MethodDocumentation doc = new MethodDocumentation();
+//
+//    @Test
+//    void checkAnnotated() {
+//        List<Method> methods = Arrays.asList(TestClass.class.getDeclaredMethods());
+//        methods.forEach(method -> {
+//            Assertions.assertTrue(doc.isAnnotated(method));
+//        });
+//    }
 
 }
