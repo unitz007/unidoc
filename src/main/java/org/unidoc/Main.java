@@ -24,5 +24,6 @@ public class Main {
         CompilationUnit cu = StaticJavaParser.parse(file);
         VoidVisitorAdapter<Void> field = new MethodParser();
         field.visit(cu, null);
+        System.out.println(cu);
     }
 }

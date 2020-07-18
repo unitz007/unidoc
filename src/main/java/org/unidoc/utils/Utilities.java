@@ -1,15 +1,14 @@
 package org.unidoc.utils;
 
-public class Utilities {
-    public static String getFile(Class<?> clazz) {
-        String projectDir = System.getProperty("user.dir") + "/src/main/java/";
-        String pkg = clazz.getCanonicalName().replace('.', '/');
-        return projectDir + pkg + ".java";
+import com.github.javaparser.javadoc.JavadocBlockTag;
 
+public class Utilities {
+
+    public static String replace(String value) {
+        return value.replace("\"", "");
     }
 
-//    public static String buildEnv() {
-//        return "noy yet";
-//    }
-
+    public static String lowerCaseBlockTag(JavadocBlockTag.Type tag) {
+        return tag.name().toString().toLowerCase();
+    }
 }

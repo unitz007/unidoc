@@ -1,15 +1,8 @@
 package org.unidoc.parse;
 
-import com.github.javaparser.Position;
-import com.github.javaparser.Range;
-import com.github.javaparser.TokenRange;
-import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.javadoc.Javadoc;
-import com.github.javaparser.javadoc.JavadocBlockTag;
-import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.ClassDoc;
 import org.unidoc.FieldDoc;
 import org.unidoc.MethodDoc;
@@ -20,7 +13,7 @@ import org.unidoc.MethodDoc;
 )
 public class FieldParser extends VoidVisitorAdapter<Void> {
 
-    @MethodDoc("Overridden method")
+    @MethodDoc(description = "Overridden method")
     @Override
     public void visit(FieldDeclaration fd, Void arg) {
         super.visit(fd, arg);

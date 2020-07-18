@@ -13,12 +13,24 @@ public @interface MethodDoc {
      *
      * @return description of method
      */
-    String value() default ""; // description
+    String description(); // description
 
     /**
      *
      * @return description of return value
      */
     String returns() default "";
+
+    /**
+     *
+     * @return exception(s) thrown.
+     */
+    String[] exceptions() default "";
+
+    /**
+     *
+     * @return params
+     */
+    String[] params() default "";
 
 }
