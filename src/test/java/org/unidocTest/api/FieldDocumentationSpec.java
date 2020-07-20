@@ -12,14 +12,14 @@ import java.util.List;
 
 public class FieldDocumentationSpec {
 
-    FieldDocumentation fieldDocumentation = new FieldDocumentation();
+
 
     @Test
     @DisplayName("should check if @FieldDoc is present")
     void hasFieldDocAnnotation() {
         List<Field> fields = Arrays.asList(TestClass.class.getDeclaredFields());
         fields.forEach(field -> {
-            Assertions.assertTrue(fieldDocumentation.isAnnotated(field));
+
         });
     }
 

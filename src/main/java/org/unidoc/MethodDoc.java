@@ -13,7 +13,7 @@ public @interface MethodDoc {
      *
      * @return description of method
      */
-    String description(); // description
+    String description() default ""; // description
 
     /**
      *

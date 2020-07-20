@@ -8,7 +8,9 @@ public class Utilities {
         return value.replace("\"", "");
     }
 
-    public static String lowerCaseBlockTag(JavadocBlockTag.Type tag) {
-        return tag.name().toString().toLowerCase();
+    public static String lowerCaseBlockTag(String tag) {
+        return JavadocBlockTag.Type.valueOf(tag)
+                .name()
+                .toLowerCase();
     }
 }

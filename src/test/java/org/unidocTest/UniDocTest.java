@@ -13,7 +13,7 @@ import java.util.Scanner;
 @ClassDoc(author = "charles", value = "cgadsf", version = "1.0.0")
 public class UniDocTest {
 
-    @FieldDoc("test field")
+    @FieldDoc(description = "test field")
     private int testField;
 
     @Test
