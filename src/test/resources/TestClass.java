@@ -4,10 +4,9 @@ import org.unidoc.ClassDoc;
 import org.unidoc.ConstructorDoc;
 import org.unidoc.FieldDoc;
 import org.unidoc.MethodDoc;
-import org.unidoc.ParameterDoc;
 import java.io.FileNotFoundException;
 
-@ClassDoc(value = "A class used for test" + "<p>This class is just for test<p>", author = "Dinneya Charles", version = "1.0.0")
+@ClassDoc(description = "A class used for test" + "<p>This class is just for test<p>", author = "Dinneya Charles", version = "1.0.0")
 public class TestClass {
 
     /**
@@ -30,11 +29,25 @@ public class TestClass {
     public TestClass(@FieldDoc(description = "test parameter") String test) {
     }
 
+    /**
+     * getTest.
+     *
+     * @param age dbfihs
+     * @return  test return
+     */
     @MethodDoc(returns = "test return")
     public String getTest(@FieldDoc(description = "dbfihs") int age) {
         return test;
     }
 
+    /**
+     * this is a test method.
+     *
+     * @param test hbefihe
+     * @param rest jnfonojd
+     * @param restt jfu
+     * @throws FileNotFoundException enjo
+     */
     @MethodDoc(description = "this is a test method", exceptions = "enjo")
     public void setTest(@FieldDoc(description = "hbefihe") String test, @FieldDoc(description = "jnfonojd") String rest, @FieldDoc(description = "jfu") int restt) throws FileNotFoundException {
         this.test = test;

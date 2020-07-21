@@ -14,13 +14,13 @@ public @interface ClassDoc {
      *
      * @return author name
      */
-    String author() default ""; // @author in javadoc
+    String[] author() default ""; // @author in javadoc
 
     /**
      *
      * @return description of class
      */
-    String value() default ""; // description of class
+    String description() default ""; // description of class
 
     /**
      *
@@ -30,8 +30,8 @@ public @interface ClassDoc {
 
     /**
      *
-     * @return true if it's deprecated
+     * @return if it's deprecated
      */
-    boolean deprecated() default false; // @deprecated
+    String deprecated() default ""; // @deprecated
 
 }

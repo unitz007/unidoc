@@ -1,19 +1,28 @@
 package org.unidoc.core;
 
+import com.github.javaparser.ast.NodeList;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.expr.AnnotationExpr;
+import com.github.javaparser.ast.expr.MemberValuePair;
+import com.github.javaparser.javadoc.Javadoc;
 import org.unidoc.ClassDoc;
+
+import java.util.Optional;
 
 public class ClassDocumentation {
 
-//    public void document(Class<?> cls) {
-//        cls.getDeclaredAnnotationsByType(ClassDoc.class);
-//    }
+    private NodeList<MemberValuePair> pairs;
+    private Javadoc javadoc;
 
-    /**
-     * checks if class is annotated with @ClassDoc.
-     * @param cls class
-     * @return boolean
-     */
-    public boolean isAnnotated(Class<?> cls) {
-        return cls.isAnnotationPresent(ClassDoc.class); // true if cls has @ClassDoc
+    public ClassDocumentation(ClassOrInterfaceDeclaration cd) {
+        Optional<AnnotationExpr> annotationByClass = cd.getAnnotationByClass(ClassDoc.class);
+        annotationByClass.ifPresent(annotationExpr -> {
+            this.pairs = annotationExpr.asNormalAnnotationExpr().getPairs();
+        });
     }
+
+    public Javadoc getJavadoc() {
+        return javadoc;
+    }
+
 }

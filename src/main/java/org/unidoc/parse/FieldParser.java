@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @ClassDoc(version = "1.0.0",
         author = "<a href=mailto:dinneyacharles5@gmail.com>Dinneya Charles</a>",
-        value = "class to parse variables."
+        description = "class to parse variables."
 )
 public class FieldParser extends VoidVisitorAdapter<Void> {
 
@@ -30,7 +30,6 @@ public class FieldParser extends VoidVisitorAdapter<Void> {
         if (expr.isPresent()) {
             FieldDocumentation fieldDocumentation = new FieldDocumentation(fd);
             fd.setJavadocComment(fieldDocumentation.javadoc());
-            System.out.println(fd);
         } else {
             fd.getVariables().forEach(variableDeclarator -> {
                 log.info("Variable: " + variableDeclarator.getNameAsString()

@@ -10,7 +10,7 @@ import java.io.*;
 import java.nio.file.FileSystems;
 import java.util.Scanner;
 
-@ClassDoc(author = "charles", value = "cgadsf", version = "1.0.0")
+@ClassDoc(author = "charles", description = "cgadsf", version = "1.0.0")
 public class UniDocTest {
 
     @FieldDoc(description = "test field")

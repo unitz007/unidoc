@@ -4,12 +4,11 @@ import org.unidoc.ClassDoc;
 import org.unidoc.ConstructorDoc;
 import org.unidoc.FieldDoc;
 import org.unidoc.MethodDoc;
-import org.unidoc.ParameterDoc;
 
 import java.io.FileNotFoundException;
 
 @ClassDoc(
-        value = "A class used for test" +
+        description = "A class used for test" +
                 "<p>This class is just for test<p>",
         author = "Dinneya Charles",
         version = "1.0.0"
