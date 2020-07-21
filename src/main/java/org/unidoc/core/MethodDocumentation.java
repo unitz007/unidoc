@@ -18,7 +18,7 @@ import org.unidoc.utils.Utilities;
 public class MethodDocumentation {
 
   private Javadoc javadoc;
-    private Log log = LogFactory.getLog(this.getClass());
+    private final Log log = LogFactory.getLog(this.getClass());
 
 
     private NodeList<MemberValuePair> values;

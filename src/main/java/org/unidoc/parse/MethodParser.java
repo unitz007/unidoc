@@ -21,7 +21,6 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
         if (md.isAnnotationPresent(MethodDoc.class)) { // check if method has @MethodDoc annotation
             MethodDocumentation methodDocumentation = new MethodDocumentation(md);
             md.setJavadocComment(methodDocumentation.getJavadoc());
-            System.out.println(md);
         } else {
             log.info(md.getNameAsString() + "() is not annotated with @" + MethodDoc.class.getSimpleName());
         }

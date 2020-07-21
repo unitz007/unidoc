@@ -19,6 +19,9 @@ public class TestClass {
     @FieldDoc(description = "test field")
     private String test = "global";
 
+    @FieldDoc(description = "test field 2")
+    private String test2;
+
     @ConstructorDoc("test constructor")
     public TestClass() {
 
