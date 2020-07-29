@@ -8,7 +8,6 @@ import org.unidoc.parse.FieldParser;
 import org.unidoc.parse.MethodParser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -26,13 +25,15 @@ public class Main {
         File file = new File(FILE_PATH);
         CompilationUnit cu = StaticJavaParser.parse(file);
         VoidVisitorAdapter<Void> field = new FieldParser();
-        field.visit(cu, null);
+        field.visit(cu, null); // field declaration
         field = new MethodParser();
-        field.visit(cu, null);
+        field.visit(cu, null); // method declaration
         field = new ClassParser();
-        field.visit(cu, null);
+        field.visit(cu, null); // class declaration
         FileOutputStream fileOutStream = new FileOutputStream(
                 new File(System.getProperty("user.dir") + "/src/test/resources/TestClass.java"));
         fileOutStream.write(cu.toString().getBytes());
+        fileOutStream.close();
+        System.out.println(cu);
     }
 }

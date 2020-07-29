@@ -7,11 +7,11 @@ import org.unidocTest.TestClass;
 
 public class ClassDocumentationSpec {
 
-    ClassDocumentation classDocumentation = new ClassDocumentation();
+//    ClassDocumentation classDocumentation = new ClassDocumentation();
 
-    @Test
-    void hasClassDocAnnotation() {
-        Assertions.assertTrue(classDocumentation.isAnnotated(TestClass.class));
-    }
+//    @Test
+//    void hasClassDocAnnotation() {
+//        Assertions.assertTrue(classDocumentation.isAnnotated(TestClass.class));
+//    }
 
 }

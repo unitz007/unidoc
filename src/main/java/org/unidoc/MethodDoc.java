@@ -33,4 +33,10 @@ public @interface MethodDoc {
      */
     String[] params() default "";
 
+    /**
+     *
+     * @return authors
+     */
+    String[] author() default "";
+
 }

@@ -1,5 +1,6 @@
 package org.unidoc.parse;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import org.apache.commons.logging.Log;
@@ -21,6 +22,7 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
         if (md.isAnnotationPresent(MethodDoc.class)) { // check if method has @MethodDoc annotation
             MethodDocumentation methodDocumentation = new MethodDocumentation(md);
             md.setJavadocComment(methodDocumentation.getJavadoc());
+            md.getAnnotationByClass(MethodDoc.class).ifPresent(Node::remove);
         } else {
             log.info(md.getNameAsString() + "() is not annotated with @" + MethodDoc.class.getSimpleName());
         }

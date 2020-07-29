@@ -9,8 +9,6 @@ import com.github.javaparser.ast.expr.MemberValuePair;
 import com.github.javaparser.ast.type.ReferenceType;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.unidoc.FieldDoc;
 import org.unidoc.MethodDoc;
 import org.unidoc.utils.Utilities;
@@ -18,7 +16,7 @@ import org.unidoc.utils.Utilities;
 public class MethodDocumentation {
 
   private Javadoc javadoc;
-    private final Log log = LogFactory.getLog(this.getClass());
+    // private final Log log = LogFactory.getLog(this.getClass());
 
 
     private NodeList<MemberValuePair> values;
@@ -115,7 +113,6 @@ public class MethodDocumentation {
     private void paramTag() {
         NodeList<Parameter> parameters = md.getParameters(); // gets method's parameter(s).
         String annotation = Utilities.lowerCaseBlockTag("PARAM");
-        String param = "";
         if (annotationExpr.isAnnotationExpr()) {
             for (Parameter parameter: parameters) {
                 parameter.getAnnotationByClass(FieldDoc.class).ifPresent(annotExpr -> {
@@ -127,9 +124,27 @@ public class MethodDocumentation {
                             }
                         });
                     }
+                    annotExpr.remove();
                 });
             }
         }
+    }
+
+    private void author() {
+        String authorTag = Utilities.lowerCaseBlockTag("AUTHOR");
+        values.forEach(memberValuePair -> {
+            if (memberValuePair.getNameAsString().equals("author")) {
+                if (!memberValuePair.getValue().isArrayInitializerExpr()) {
+                    javadoc.addBlockTag(authorTag, Utilities.replace(memberValuePair.getValue().toString()));
+                } else {
+                    NodeList<Expression> values = memberValuePair.getValue().asArrayInitializerExpr().getValues();
+                    values.forEach(val -> {
+                        javadoc.addBlockTag(authorTag, Utilities.replace(val.toString()));
+                    });
+
+                }
+            }
+        });
     }
 
     /**
@@ -138,6 +153,7 @@ public class MethodDocumentation {
      */
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(docDescription()); // instantiates javadoc.
+        author(); // add @author tag
         paramTag(); // add @param tag
         returnTag(); // add @return tag
         throwTag(); // add @throws tag

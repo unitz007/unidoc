@@ -30,6 +30,7 @@ public class FieldParser extends VoidVisitorAdapter<Void> {
         if (expr.isPresent()) {
             FieldDocumentation fieldDocumentation = new FieldDocumentation(fd);
             fd.setJavadocComment(fieldDocumentation.javadoc());
+            expr.get().remove();
         } else {
             fd.getVariables().forEach(variableDeclarator -> {
                 log.info("Variable: " + variableDeclarator.getNameAsString()
