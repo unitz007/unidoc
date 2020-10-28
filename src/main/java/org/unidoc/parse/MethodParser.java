@@ -27,6 +27,4 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
             log.info(md.getNameAsString() + "() is not annotated with @" + MethodDoc.class.getSimpleName());
         }
     }
-
-
 }

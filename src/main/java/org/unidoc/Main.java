@@ -4,6 +4,7 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import org.unidoc.parse.ClassParser;
+import org.unidoc.parse.ConstructorParser;
 import org.unidoc.parse.FieldParser;
 import org.unidoc.parse.MethodParser;
 
@@ -30,6 +31,8 @@ public class Main {
         field.visit(cu, null); // method declaration
         field = new ClassParser();
         field.visit(cu, null); // class declaration
+        field = new ConstructorParser();
+        field.visit(cu, null); // constructor declaration
         FileOutputStream fileOutStream = new FileOutputStream(
                 new File(System.getProperty("user.dir") + "/src/test/resources/TestClass.java"));
         fileOutStream.write(cu.toString().getBytes());

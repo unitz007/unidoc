@@ -34,7 +34,7 @@ public class FieldParser extends VoidVisitorAdapter<Void> {
         } else {
             fd.getVariables().forEach(variableDeclarator -> {
                 log.info("Variable: " + variableDeclarator.getNameAsString()
-                        + ", does not annotated with @" + FieldDoc.class.getSimpleName());
+                        + ", is not annotated with @" + FieldDoc.class.getSimpleName());
             });
         }
     }

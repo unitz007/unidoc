@@ -6,8 +6,6 @@ import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.MemberValuePair;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.unidoc.FieldDoc;
 import org.unidoc.utils.Utilities;
 
@@ -21,9 +19,9 @@ public class FieldDocumentation {
         Optional<AnnotationExpr> expr = fd.getAnnotationByClass(FieldDoc.class);
         if (expr.isPresent()) {
            expr.ifPresent(annotation -> {
-                if (annotation.isNormalAnnotationExpr()) {
+                //if (annotation.isNormalAnnotationExpr()) {
                     pairs = annotation.asNormalAnnotationExpr().getPairs();
-                }
+                //}
             });
         }
     }

@@ -13,6 +13,10 @@ import org.unidoc.FieldDoc;
 import org.unidoc.MethodDoc;
 import org.unidoc.utils.Utilities;
 
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
 public class MethodDocumentation {
 
   private Javadoc javadoc;
@@ -55,25 +59,36 @@ public class MethodDocumentation {
                 }
             }
         }
+//        values.stream()
+//                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("description"))
+//                .forEach(memberValuePair -> {
+//                    String[] desc = memberValuePair.getValue().toString().split("\\+");
+//                    //Arrays.stream(desc).forEach(System.out::println);
+//                    description.set(JavadocDescription.parseText(Utilities.replace(memberValuePair.getValue() + ".")));
+//                });
         return description;
     }
 
     /**
      * defines and set @return tag
      */
+    @MethodDoc
     private void returnTag() {
         String returns = Utilities.lowerCaseBlockTag("RETURN");
-        if (!md.getType().isVoidType()) {  // if method returns a value i.e NOT void.
-            if (annotationExpr.isNormalAnnotationExpr()) {
-                values.forEach(v -> {
-                    if (v.getNameAsString().equals("returns")) {  // find returns value in MethodClass annotation
-                        javadoc.addBlockTag(returns, "", Utilities.replace(v.getValue().toString()));
-                    }
-                });
-            } else  {
-                javadoc.addBlockTag(returns, "");
-            }
-        }
+//        if (!md.getType().isVoidType()) {  // if method returns a value i.e NOT void.
+//            if (annotationExpr.isNormalAnnotationExpr()) {
+//                values.forEach(v -> {
+//                    if (v.getNameAsString().equals("returns")) {  // find returns value in MethodClass annotation
+//                        javadoc.addBlockTag(returns, "", Utilities.replace(v.getValue().toString()));
+//                    }
+//                });
+//            } else  {
+//                javadoc.addBlockTag(returns, "");
+//            }
+//        }
+        values.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("returns"))
+                .forEach(memberValuePair -> javadoc.addBlockTag(returns, Utilities.replace(memberValuePair.getValue().toString())));
     }
 
     /**
@@ -105,14 +120,17 @@ public class MethodDocumentation {
                 });
             }
         }
+
     }
 
     /**
      * defines and set javadoc @param tag.
      */
+    @MethodDoc
     private void paramTag() {
-        NodeList<Parameter> parameters = md.getParameters(); // gets method's parameter(s).
+        NodeList<Parameter> parameters = md.getParameters(); // gets method's parameter(s)
         String annotation = Utilities.lowerCaseBlockTag("PARAM");
+
         if (annotationExpr.isAnnotationExpr()) {
             for (Parameter parameter: parameters) {
                 parameter.getAnnotationByClass(FieldDoc.class).ifPresent(annotExpr -> {
@@ -130,21 +148,28 @@ public class MethodDocumentation {
         }
     }
 
+    /**
+     * defines and sets javadoc @author tag
+     */
     private void author() {
         String authorTag = Utilities.lowerCaseBlockTag("AUTHOR");
-        values.forEach(memberValuePair -> {
-            if (memberValuePair.getNameAsString().equals("author")) {
-                if (!memberValuePair.getValue().isArrayInitializerExpr()) {
-                    javadoc.addBlockTag(authorTag, Utilities.replace(memberValuePair.getValue().toString()));
-                } else {
-                    NodeList<Expression> values = memberValuePair.getValue().asArrayInitializerExpr().getValues();
-                    values.forEach(val -> {
-                        javadoc.addBlockTag(authorTag, Utilities.replace(val.toString()));
-                    });
 
-                }
-            }
-        });
+        values.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("author"))
+                .forEach(memberValuePair ->
+                        javadoc.addBlockTag(authorTag, Utilities.replace(memberValuePair.getValue().toString())));
+    }
+
+    /**
+     * defines and sets javadoc @version tag
+     */
+    private void version() {
+        String versionTag = Utilities.lowerCaseBlockTag("VERSION");
+
+        values.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("version"))
+                .forEach(memberValuePair ->
+                        javadoc.addBlockTag(versionTag, Utilities.replace(memberValuePair.getValue().toString())));
     }
 
     /**
@@ -154,6 +179,7 @@ public class MethodDocumentation {
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(docDescription()); // instantiates javadoc.
         author(); // add @author tag
+        version(); //add @version tag
         paramTag(); // add @param tag
         returnTag(); // add @return tag
         throwTag(); // add @throws tag

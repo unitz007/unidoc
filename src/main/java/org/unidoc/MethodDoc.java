@@ -39,4 +39,10 @@ public @interface MethodDoc {
      */
     String[] author() default "";
 
+    /**
+     *
+     * @returns version
+     */
+    String version() default "";
+
 }

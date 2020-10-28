@@ -7,10 +7,15 @@ import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.MemberValuePair;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
+import com.github.javaparser.javadoc.description.JavadocDescriptionElement;
 import org.unidoc.ClassDoc;
 import org.unidoc.utils.Utilities;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ClassDocumentation {
 
@@ -28,31 +33,63 @@ public class ClassDocumentation {
         });
     }
 
+    /**
+     *
+     * sets javadoc @author tag
+     */
     private void author() {
         String authorTag = Utilities.lowerCaseBlockTag("AUTHOR");
-        pairs.forEach(memberValuePair -> {
-            if (memberValuePair.getNameAsString().equals("author")) {
-                if (!memberValuePair.getValue().isArrayInitializerExpr()) {
-                    javadoc.addBlockTag(authorTag, Utilities.replace(memberValuePair.getValue().toString()));
-                } else {
-                    NodeList<Expression> values = memberValuePair.getValue().asArrayInitializerExpr().getValues();
-                    values.forEach(val -> {
-                        javadoc.addBlockTag(authorTag, Utilities.replace(val.toString()));
-                    });
 
-                }
-            }
-        });
+        pairs.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("author"))
+                .forEach(memberValuePair -> {
+                        NodeList<Expression> values = memberValuePair.getValue()
+                                                        .asArrayInitializerExpr().getValues();
+                        values.forEach(val -> javadoc.addBlockTag(authorTag, Utilities.replace(val.toString())));
+                        });
     }
 
+    /**
+     *
+     * sets javadoc @version tag
+     */
+    public void version() {
+        String versionTag = Utilities.lowerCaseBlockTag("VERSION");
+
+        pairs.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("version"))
+                .forEach(memberValuePair -> {
+                        String value = memberValuePair.getValue().toString();
+                        javadoc.addBlockTag(versionTag, Utilities.replace(value));
+                });
+    }
+
+    /**
+     *
+     * @return javadoc description
+     */
     private JavadocDescription description() {
-        JavadocDescription description = null;
-        for (MemberValuePair memberValuePair : pairs) {
-            if (memberValuePair.getNameAsString().equals("description")) {
-                description = JavadocDescription.parseText(Utilities.replace(memberValuePair.getValue().toString() + "."));
-            }
-        }
-        return description;
+        List<String> lines = new ArrayList<>();
+        AtomicReference<JavadocDescription> description = new AtomicReference<>();
+//        for (MemberValuePair memberValuePair : pairs) {
+//            if (memberValuePair.getNameAsString().equals("description")) {
+//                String desc = memberValuePair.getValue().toString();
+//                String[] split = desc.split("\\+");
+//                List.of(split).forEach(s -> {
+//                    System.out.println(Utilities.replace(s.trim()));
+//                });
+//                description = JavadocDescription.parseText(Utilities.replace( desc + "."));
+//            }
+//        }
+        pairs.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("description"))
+                .forEach(memberValuePair -> {
+                    String[] desc = memberValuePair.getValue().toString().split("\\+");
+                    Arrays.stream(desc).forEach(System.out::println);
+                    description.set(JavadocDescription.parseText(Utilities.replace(memberValuePair.getValue() + ".")));
+
+                });
+        return description.get();
     }
 
     /**
@@ -62,7 +99,7 @@ public class ClassDocumentation {
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(description());
         author();
+        version();
         return javadoc;
     }
-
 }
