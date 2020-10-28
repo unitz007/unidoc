@@ -70,7 +70,6 @@ public class ClassDocumentation {
      */
     private JavadocDescription description() {
         List<String> lines = new ArrayList<>();
-        //List<String> line = new ArrayList<>();
         AtomicReference<JavadocDescription> description = new AtomicReference<>();
 //        for (MemberValuePair memberValuePair : pairs) {
 //            if (memberValuePair.getNameAsString().equals("description")) {
