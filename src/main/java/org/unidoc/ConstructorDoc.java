@@ -13,5 +13,11 @@ public @interface ConstructorDoc {
      *
      * @return description of constructor
      */
-    String value() default ""; // description
+    String description() default ""; // description
+
+    /**
+     *
+     * @return params
+     */
+    String[] params() default "";
 }
