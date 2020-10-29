@@ -33,7 +33,8 @@ Standard java format:
 *Class description
 *
 *@author David
-**\
+*\
+public class ExampleClass {}
 
 ```
 
@@ -41,6 +42,7 @@ Standard java format:
 Unidoc format:
 
 @ClassDoc(description = "Class description", author = "David")
+public class ExampleClass {}
 
 ```  
 
