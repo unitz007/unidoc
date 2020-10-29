@@ -4,9 +4,9 @@ Generates javadoc using annotations.
 
 ## Description
 
-This is an alternative to the standard format of documenting java source codes. Unidoc provides interfaces containing implementations(attributes) which are apt for usage by the javadoc tool in generating a documentation file. 
+This is an alternative to the standard format of documenting java source codes. Unidoc provides interfaces containing implementations(attributes) which are apt for usage by the javadoc tool in generating javadoc documentation. 
 
-The interfaces/annotations are grouped based on declaration:\
+The interfaces/annotations are grouped based on declaration:
 
     > @ClassDoc
     > @ConstructorDoc
@@ -15,7 +15,7 @@ The interfaces/annotations are grouped based on declaration:\
     
 Attributes of each annotation are internally converted to match the description and tags elements in the standard format of documenting java codes.
 
-This project is built around these core ideas:\
+This project is built around these core ideas:
 
     * A more structured and less verbose documenting format.
     * A very beginner friendly approach to documenting java codes.
@@ -30,16 +30,17 @@ An example:
 Standard java format:
 
 /**
-*A class declaration
-*@author divad
-*\
+*Class description
+*
+*@author David
+**\
 
 ```
 
 ```
 Unidoc format:
 
-@ClassDoc(description = "A class declaration", author = "divad")
+@ClassDoc(description = "Class description", author = "David")
 
 ```  
 
