@@ -3,13 +3,11 @@ package org.unidoc.parse;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.javadoc.Javadoc;
-import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.unidoc.ClassDoc;
-import org.unidoc.FieldDoc;
-import org.unidoc.MethodDoc;
+import org.unidoc.annotations.ClassDoc;
+import org.unidoc.annotations.FieldDoc;
+import org.unidoc.annotations.MethodDoc;
 import org.unidoc.core.FieldDocumentation;
 
 import java.util.Optional;

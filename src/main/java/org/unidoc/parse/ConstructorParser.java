@@ -1,13 +1,11 @@
 package org.unidoc.parse;
 
-import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.unidoc.ConstructorDoc;
-import org.unidoc.MethodDoc;
+import org.unidoc.annotations.ConstructorDoc;
 import org.unidoc.core.ConstructorDocumentation;
 
 public class ConstructorParser extends VoidVisitorAdapter<Void> {

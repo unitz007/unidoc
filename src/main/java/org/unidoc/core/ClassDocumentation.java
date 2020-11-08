@@ -3,27 +3,22 @@ package org.unidoc.core;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
-import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.MemberValuePair;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
-import com.github.javaparser.javadoc.description.JavadocDescriptionElement;
-import org.unidoc.ClassDoc;
-import org.unidoc.utils.Utilities;
+import org.unidoc.annotations.ClassDoc;
+import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ClassDocumentation {
 
     private NodeList<MemberValuePair> pairs;
     private Javadoc javadoc;
+    private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
 
     /**
-     *
+     * constructor with one parameter.
      * @param cd class declaration
      */
     public ClassDocumentation(ClassOrInterfaceDeclaration cd) {
@@ -34,72 +29,105 @@ public class ClassDocumentation {
     }
 
     /**
+     * creates and return an instance of JavadocDescription.
+     * @return javadoc description
+     */
+    private JavadocDescription description() {
+        return javadocBlocktagSetter.setDescription(pairs);
+    }
+
+
+    /**
      *
      * sets javadoc @author tag
      */
-    private void author() {
-        String authorTag = Utilities.lowerCaseBlockTag("AUTHOR");
-
-        pairs.stream()
-                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("author"))
-                .forEach(memberValuePair -> {
-                        NodeList<Expression> values = memberValuePair.getValue()
-                                                        .asArrayInitializerExpr().getValues();
-                        values.forEach(val -> javadoc.addBlockTag(authorTag, Utilities.replace(val.toString())));
-                        });
+    public void authorTag() {
+        javadocBlocktagSetter.setAuthorTag(javadoc, pairs);
+//        String authorTag = Utilities.lowerCaseBlockTag("AUTHOR");
+//
+//        pairs.stream()
+//                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("author"))
+//                .forEach(memberValuePair -> {
+//                        NodeList<Expression> values = memberValuePair.getValue()
+//                                                        .asArrayInitializerExpr().getValues();
+//                        values.forEach(val -> javadoc.addBlockTag(authorTag, Utilities.replace(val.toString())));
+//                        });
     }
 
     /**
      *
      * sets javadoc @version tag
      */
-    public void version() {
-        String versionTag = Utilities.lowerCaseBlockTag("VERSION");
+    public void versionTag() {
+        javadocBlocktagSetter.setVersionTag(javadoc, pairs);
 
-        pairs.stream()
-                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("version"))
-                .forEach(memberValuePair -> {
-                        String value = memberValuePair.getValue().toString();
-                        javadoc.addBlockTag(versionTag, Utilities.replace(value));
-                });
+//        String versionTag = Utilities.lowerCaseBlockTag("VERSION");
+//
+//        pairs.stream()
+//                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("version"))
+//                .forEach(memberValuePair -> {
+//                        String value = memberValuePair.getValue().toString();
+//                        javadoc.addBlockTag(versionTag, Utilities.replace(value)); });
     }
 
     /**
      *
-     * @return javadoc description
+     * sets javadoc @see tag
      */
-    private JavadocDescription description() {
-        List<String> lines = new ArrayList<>();
-        AtomicReference<JavadocDescription> description = new AtomicReference<>();
-//        for (MemberValuePair memberValuePair : pairs) {
-//            if (memberValuePair.getNameAsString().equals("description")) {
-//                String desc = memberValuePair.getValue().toString();
-//                String[] split = desc.split("\\+");
-//                List.of(split).forEach(s -> {
-//                    System.out.println(Utilities.replace(s.trim()));
-//                });
-//                description = JavadocDescription.parseText(Utilities.replace( desc + "."));
-//            }
-//        }
-        pairs.stream()
-                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("description"))
-                .forEach(memberValuePair -> {
-                    String[] desc = memberValuePair.getValue().toString().split("\\+");
-                    Arrays.stream(desc).forEach(System.out::println);
-                    description.set(JavadocDescription.parseText(Utilities.replace(memberValuePair.getValue() + ".")));
-
-                });
-        return description.get();
+    public void seeTag() {
+        javadocBlocktagSetter.setSeeTag(javadoc, pairs);
+//        String seeTag = Utilities.lowerCaseBlockTag("SEE");
+//
+//        pairs.stream()
+//                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("see"))
+//                .forEach(memberValuePair -> {
+//                        String value = memberValuePair.getValue().toString();
+//                        javadoc.addBlockTag(seeTag, Utilities.replace(value)); });
     }
 
     /**
      *
+     * sets javadoc @since tag
+     */
+    public void sinceTag() {
+        javadocBlocktagSetter.setSinceTag(javadoc, pairs);
+//        String sinceTag = Utilities.lowerCaseBlockTag("SINCE");
+//
+//        pairs.stream()
+//                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("since"))
+//                .forEach(memberValuePair -> {
+//                        String value = memberValuePair.getValue().toString();
+//                        javadoc.addBlockTag(sinceTag, Utilities.replace(value)); });
+    }
+
+    /**
+     *
+     * sets javadoc @serial tag
+     */
+    private void serialTag() {
+        javadocBlocktagSetter.setSerialTag(javadoc, pairs);
+    }
+
+    /**
+     *
+     * sets javadoc @deprecated tag
+     */
+    private void deprecatedTag() {
+        javadocBlocktagSetter.setDeprecatedTag(javadoc, pairs);
+    }
+
+    /**
+     * defines and sets javadoc.
      * @return javadoc
      */
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(description());
-        author();
-        version();
+        authorTag();
+        versionTag();
+        seeTag();
+        sinceTag();
+        serialTag();
+        deprecatedTag();
         return javadoc;
     }
 }

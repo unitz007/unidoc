@@ -5,7 +5,7 @@ import com.github.javaparser.javadoc.JavadocBlockTag;
 public class Utilities {
 
     public static String replace(String value) {
-        return value.replace("\"", "");
+        return value.replace("\"", "").trim();
     }
 
     public static String lowerCaseBlockTag(String tag) {

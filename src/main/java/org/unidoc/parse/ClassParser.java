@@ -3,7 +3,7 @@ package org.unidoc.parse;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import org.unidoc.ClassDoc;
+import org.unidoc.annotations.ClassDoc;
 import org.unidoc.core.ClassDocumentation;
 
 public class ClassParser extends VoidVisitorAdapter<Void> {

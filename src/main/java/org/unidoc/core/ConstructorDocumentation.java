@@ -2,24 +2,18 @@ package org.unidoc.core;
 
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.MemberValuePair;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
-import org.unidoc.ConstructorDoc;
-import org.unidoc.FieldDoc;
-import org.unidoc.MethodDoc;
-import org.unidoc.utils.Utilities;
-
-import java.lang.reflect.Constructor;
+import org.unidoc.annotations.ConstructorDoc;
+import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
 
 public class ConstructorDocumentation {
 
+    private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
     private Javadoc javadoc;
-
-    private NodeList<MemberValuePair> values;
+    private NodeList<MemberValuePair> pairs;
     private final ConstructorDeclaration cd;
     private AnnotationExpr annotationExpr;
 
@@ -32,48 +26,78 @@ public class ConstructorDocumentation {
         // checks if constructor has @ConstructorDoc annotation
         cd.getAnnotationByClass(ConstructorDoc.class).ifPresent(annotation -> {
             if (annotation.isNormalAnnotationExpr()) {
-                this.values = annotation.asNormalAnnotationExpr().getPairs();
+                this.pairs = annotation.asNormalAnnotationExpr().getPairs();
+                this.annotationExpr = annotation;
             }
-            this.annotationExpr = annotation;
+
         });
     }
 
     /**
      * sets description of constructor
-     *
+     * @return an instance of JavadocDescription
      */
     protected JavadocDescription description() {
-        JavadocDescription description = null;
-        for (MemberValuePair value : values) {
-            description = JavadocDescription.parseText(Utilities.replace(value.getValue().toString()));
-        }
-        return description;
+        return javadocBlocktagSetter.setDescription(pairs);
+//        AtomicReference<JavadocDescription> description = new AtomicReference<>();
+//        pairs.stream()
+//                .filter( memberValuePair -> memberValuePair.getNameAsString().equals("description"))
+//                .forEach( memberValuePair -> {
+//                    String value = memberValuePair.getValue().toString()
+//                                            .replace(" + ", "\n");
+//                    description.set(JavadocDescription.parseText(Utilities.replace(value + "."))); });
+//        return description.get();
     }
 
     /**
      * defines and set javadoc @param tag.
      */
-    @MethodDoc
     private void paramTag() {
-        NodeList<Parameter> parameters = cd.getParameters(); // gets method's parameter(s)
-        String annotation = Utilities.lowerCaseBlockTag("PARAM");
-
-        if (annotationExpr.isAnnotationExpr()) {
-            for (Parameter parameter: parameters) {
-                parameter.getAnnotationByClass(FieldDoc.class).ifPresent(annotExpr -> {
-                    if (annotExpr.isNormalAnnotationExpr()) {
-                        annotExpr.asNormalAnnotationExpr().getPairs().forEach(memberValuePair -> {
-                            if (memberValuePair.getNameAsString().equals("description")) {
-                                String p = memberValuePair.getValue().toString();
-                                javadoc.addBlockTag(annotation, parameter.getNameAsString(), Utilities.replace(p));
-                            }
-                        });
-                    }
-                    annotExpr.remove();
-                });
-            }
-        }
+        javadocBlocktagSetter.setConstructorParamTag(cd, annotationExpr, javadoc);
     }
+
+    /**
+     * defines and sets @return tag
+     */
+    private void returnTag() {
+        javadocBlocktagSetter.setConstructorReturnTag(cd, javadoc, pairs);
+    }
+
+    /**
+     * defines and set javadoc @throws tag.
+     */
+    private void throwTag() {
+        javadocBlocktagSetter.setConstructorThrowTag(cd, javadoc, pairs);
+    }
+
+    /**
+     * defines and sets @see tag
+     */
+    private void seeTag() {
+        javadocBlocktagSetter.setSeeTag(javadoc, pairs);
+    }
+
+    /**
+     * defines and sets @since tag
+     */
+    private void sinceTag() {
+        javadocBlocktagSetter.setSinceTag(javadoc, pairs);
+    }
+
+    /**
+     * defines and sets @serialData tag
+     */
+    private void serialDataTag() {
+        javadocBlocktagSetter.setSerialDataTag(javadoc, pairs);
+    }
+
+    /**
+     * defines and sets @deprecated tag
+     */
+    private void deprecatedTag() {
+        javadocBlocktagSetter.setDeprecatedTag(javadoc, pairs);
+    }
+
 
     /**
      * defines and set javadoc.
@@ -82,15 +106,12 @@ public class ConstructorDocumentation {
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(description());
         paramTag();
+        returnTag();
+        throwTag();
+        seeTag();
+        sinceTag();
+        serialDataTag();
+        deprecatedTag();
         return javadoc;
     }
-
-//    /**
-//     * checks if class has @ConstructorDoc annotations.
-//     * @param constructor constructor
-//     * @return true if its annotated
-//     */
-//    public boolean isAnnotated(Constructor<?> constructor) {
-//       return constructor.isAnnotationPresent(ConstructorDoc.class);
-//    }
 }
