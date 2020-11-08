@@ -1,21 +1,42 @@
 package org.unidocTest;
 
-import org.unidoc.ClassDoc;
-import org.unidoc.ConstructorDoc;
-import org.unidoc.FieldDoc;
-import org.unidoc.MethodDoc;
+import org.unidoc.annotations.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @ClassDoc(
-        description = "A class used for test " +
-                "<p>This class is just for test<p>",
+        description = "<h1>A class used for test</h1> " +
+                "<p>" +
+                "This class is just for test. blah blah blah blah blah blah blah" +
+                "<p> \n" +
+                "<pre> \n" +
+                "public class JavadocTest {\n" +
+                "   &#64;SuppressWarnings \n" +
+                "   public List&#60;String&#62; generics(){ \n" +
+                "       // '@', '<' and '>'  have to be escaped with HTML codes \n" +
+                "   } \n" +
+                "} \n" +
+                "</pre> \n" +
+                "hhjlkhk " +
+                "{@link #getTest(int) getTest} \n" +
+                " hfghdsd",
         author = {"Dinneya Charles", "Emanuel Ninja"},
-        version = "1.0.0"
+        version = "1.0.0",
+        see = "<a href=\"URL#value\">label</a>",
+        since = "2020-11-06",
+        serial = "include",
+        deprecated = "no"
 )
 public class TestClass {
 
-    @FieldDoc(description = "test field")
+    @FieldDoc(description = "test field",
+            see = "<a href=\"URL#value\">label</a>",
+            since = "2020-11-07",
+            serial = "djdjknjd",
+            serialField = {"test", "String", "sddsjj"},
+            deprecated = "no"
+            )
     private String test = "global";
 
     @FieldDoc(description = "test field 2")
@@ -25,23 +46,37 @@ public class TestClass {
     public TestClass() {
     }
 
-    @ConstructorDoc(description = "Testclass constructor with one parameter")
-    public TestClass(@FieldDoc(description = "test parameter") String test) {
+    @ConstructorDoc(
+                    description = "Testclass constructor with one parameter",
+                    returns = "an instance",
+                    see = "<a href=\"URL#value\">label</a>",
+                    since = "2020-11-07",
+                    serialData = "...",
+                    exceptions = {"this file..."},
+                    deprecated = "no"
+    )
+    public TestClass(@ParamDoc(description = "test parameter") String test) throws FileNotFoundException {
     }
 
-    @MethodDoc(returns = "test return", author = "Dinneya Charles", version = "1.0.0")
-    public String getTest(@FieldDoc(description = "dbfihs") int age)  {
+    @MethodDoc(returns = "test return")
+    public String getTest(@ParamDoc(description = "dbfihs") int age)  {
         return test;
     }
 
 
-    @MethodDoc(description = "this is a test method",
-            exceptions = "enjo",
-            author = "Dinneya David",
-            version = "1.0.0")
-    public void setTest(@FieldDoc(description = "hbefihe") String test,
-                        @FieldDoc(description = "jnfonojd") String rest,
-                        @FieldDoc(description = "jfu") int restt) throws FileNotFoundException {
+    @MethodDoc(
+                description = "this is a test method",
+                exceptions = {"enjo " +
+                    "hjdjdkjjkdj",
+                    "piss"},
+                see = "<a href=\"URL#value\">label</a>",
+                since = "2020-11-07",
+                serialData = "...",
+                deprecated = "no"
+            )
+    public void setTest(@ParamDoc(description = "hbefihe") String test,
+                        @ParamDoc(description = "jnfonojd") String rest,
+                        @ParamDoc(description = "jfu") int restt) throws FileNotFoundException, IOException {
 
         this.test = test;
     }

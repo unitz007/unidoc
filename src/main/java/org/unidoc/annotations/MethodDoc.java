@@ -1,4 +1,4 @@
-package org.unidoc;
+package org.unidoc.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -17,6 +17,12 @@ public @interface MethodDoc {
 
     /**
      *
+     * @return params
+     */
+    String[] params() default "";
+
+    /**
+     *
      * @return description of return value
      */
     String returns() default "";
@@ -29,20 +35,25 @@ public @interface MethodDoc {
 
     /**
      *
-     * @return params
+     * @return @see in javadoc
      */
-    String[] params() default "";
+    String see() default "";
 
     /**
      *
-     * @return authors
+     * @return @since in javadoc
      */
-    String[] author() default "";
+    String since() default "";
 
     /**
      *
-     * @returns version
+     * @return @serialData in javadoc
      */
-    String version() default "";
+    String serialData() default "";
 
+    /**
+     *
+     * @return @deprecated in javadoc
+     */
+    String deprecated() default "";
 }

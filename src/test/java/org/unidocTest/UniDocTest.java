@@ -3,8 +3,8 @@ package org.unidocTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.unidoc.ClassDoc;
-import org.unidoc.FieldDoc;
+import org.unidoc.annotations.ClassDoc;
+import org.unidoc.annotations.FieldDoc;
 
 import java.io.*;
 import java.nio.file.FileSystems;
