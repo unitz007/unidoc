@@ -13,7 +13,7 @@ The annotations include:
     > @FieldDoc
     > @MethodDoc   
     
-Attributes of each annotation are converted(internally) to match the description and tags in the standard format of java-code documentation.
+Attributes of each annotation are converted(internally) to match the description and tags in the standard format of java code documentation.
 
 This project is built around these core ideas:
 
