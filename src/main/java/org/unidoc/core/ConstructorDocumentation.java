@@ -9,6 +9,9 @@ import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.annotations.ConstructorDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
 
+/**
+ * has methods for transforming @ConstructorDoc annotations to java doc comments
+ */
 public class ConstructorDocumentation {
 
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
@@ -18,7 +21,7 @@ public class ConstructorDocumentation {
     private AnnotationExpr annotationExpr;
 
     /**
-     * constructor with one parameter.
+     * assigns value to pairs and annotationExpr
      * @param cd constructor declaration
      */
     public ConstructorDocumentation(ConstructorDeclaration cd) {
@@ -35,78 +38,61 @@ public class ConstructorDocumentation {
 
     /**
      * sets description of constructor
-     * @return an instance of JavadocDescription
+     * @return javadoc description
      */
     protected JavadocDescription description() {
         return javadocBlocktagSetter.setDescription(pairs);
-//        AtomicReference<JavadocDescription> description = new AtomicReference<>();
-//        pairs.stream()
-//                .filter( memberValuePair -> memberValuePair.getNameAsString().equals("description"))
-//                .forEach( memberValuePair -> {
-//                    String value = memberValuePair.getValue().toString()
-//                                            .replace(" + ", "\n");
-//                    description.set(JavadocDescription.parseText(Utilities.replace(value + "."))); });
-//        return description.get();
     }
 
     /**
-     * defines and set javadoc @param tag.
+     * sets javadoc @param tag.
      */
     private void paramTag() {
         javadocBlocktagSetter.setConstructorParamTag(cd, annotationExpr, javadoc);
     }
 
     /**
-     * defines and sets @return tag
-     */
-    private void returnTag() {
-        javadocBlocktagSetter.setConstructorReturnTag(cd, javadoc, pairs);
-    }
-
-    /**
-     * defines and set javadoc @throws tag.
+     * sets javadoc @throws tag.
      */
     private void throwTag() {
         javadocBlocktagSetter.setConstructorThrowTag(cd, javadoc, pairs);
     }
 
     /**
-     * defines and sets @see tag
+     * sets @see tag
      */
     private void seeTag() {
         javadocBlocktagSetter.setSeeTag(javadoc, pairs);
     }
 
     /**
-     * defines and sets @since tag
+     * sets @since tag
      */
     private void sinceTag() {
         javadocBlocktagSetter.setSinceTag(javadoc, pairs);
     }
 
     /**
-     * defines and sets @serialData tag
+     * sets @serialData tag
      */
     private void serialDataTag() {
         javadocBlocktagSetter.setSerialDataTag(javadoc, pairs);
     }
 
     /**
-     * defines and sets @deprecated tag
+     * sets @deprecated tag
      */
     private void deprecatedTag() {
         javadocBlocktagSetter.setDeprecatedTag(javadoc, pairs);
     }
 
-
     /**
-     * defines and set javadoc.
-     * @return Javadoc
+     * calls methods for setting javadoc comments.
+     * @return javadoc
      */
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(description());
         paramTag();
-        returnTag();
         throwTag();
         seeTag();
         sinceTag();

@@ -1,20 +1,24 @@
 package org.unidoc.core;
 
 import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.PackageDeclaration;
+import com.github.javaparser.ast.comments.Comment;
+import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.MemberValuePair;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
-import org.unidoc.annotations.ClassDoc;
+import org.unidoc.annotations.PackageDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
+import org.unidoc.utils.Utilities;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * has methods for transforming @ClassDoc annotations to java doc comments
+ * has methods for transforming @PackageDoc annotations to java doc comments
  */
-public class ClassDocumentation {
+public class PackageDocumentation {
 
     private NodeList<MemberValuePair> pairs;
     private Javadoc javadoc;
@@ -22,23 +26,22 @@ public class ClassDocumentation {
 
     /**
      * assigns value to pairs
-     * @param cd class declaration
+     * @param pd package declaration
      */
-    public ClassDocumentation(ClassOrInterfaceDeclaration cd) {
-        Optional<AnnotationExpr> annotationByClass = cd.getAnnotationByClass(ClassDoc.class);
+    public PackageDocumentation(PackageDeclaration pd) {
+        Optional<AnnotationExpr> annotationByClass = pd.getAnnotationByClass(PackageDoc.class);
         annotationByClass.ifPresent(annotationExpr -> {
             this.pairs = annotationExpr.asNormalAnnotationExpr().getPairs();
         });
     }
 
     /**
-     * sets description of class
+     * sets description of package
      * @return javadoc description
      */
     private JavadocDescription description() {
         return javadocBlocktagSetter.setDescription(pairs);
     }
-
 
     /**
      *
@@ -73,33 +76,21 @@ public class ClassDocumentation {
     }
 
     /**
-     *
-     * sets javadoc @serial tag
-     */
-    private void serialTag() {
-        javadocBlocktagSetter.setSerialTag(javadoc, pairs);
-    }
-
-    /**
-     *
-     * sets javadoc @deprecated tag
-     */
-    private void deprecatedTag() {
-        javadocBlocktagSetter.setDeprecatedTag(javadoc, pairs);
-    }
-
-    /**
      * calls methods for setting javadoc comments.
      * @return javadoc
      */
-    public Javadoc getJavadoc() {
+    public JavadocComment getJavadoc() {
         javadoc = new Javadoc(description());
         authorTag();
         versionTag();
         seeTag();
         sinceTag();
-        serialTag();
-        deprecatedTag();
-        return javadoc;
+        return javadoc.toComment();
     }
+
+
+//    public JavadocComment get() {
+//        JavadocComment jdc = new JavadocComment("fuck this");
+//        return jdc;
+//    }
 }

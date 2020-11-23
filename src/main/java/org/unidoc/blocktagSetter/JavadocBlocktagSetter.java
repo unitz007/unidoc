@@ -18,27 +18,28 @@ import java.util.concurrent.atomic.AtomicReference;
 public class JavadocBlocktagSetter {
 
     /**
-     * creates and return an instance of JavadocDescription.
-     * @return javadoc description
+     * defines javadoc description.
+     * @return JavadocDescription
      */
     public JavadocDescription setDescription(NodeList<MemberValuePair> pairs) {
-//        this.javadoc = javadoc;
-//        this.pairs = pairs;
 
         AtomicReference<JavadocDescription> description = new AtomicReference<>();
 
         pairs.stream()
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("description"))
                 .forEach(memberValuePair -> {
-                    String value = memberValuePair.getValue().toString().replace(" + ", "");
-                    String otherValue = value.replace("\\n", "\n");
-                    description.set(JavadocDescription.parseText(Utilities.replace(otherValue + "."))); });
+                    String value = memberValuePair.getValue().toString(); //.replace(" + ", "\n");
+                    String otherValue1 = Utilities.replace(value);
+                    String otherValue2 = otherValue1.replace("  + ", "\n");
+                    String otherValue3 = otherValue2.replace(" +  ", "\n");
+                    String otherValue4 = otherValue3.replace(" + ", "\n");
+                    description.set(JavadocDescription.parseText(otherValue4)); });
         return description.get();
     }
 
     /**
-     * creates and return an instance of JavadocDescription.
-     * @return an instance of JavadocDescription
+     * defines javadoc description for methods
+     * @return JavadocDescription
      */
     public JavadocDescription setMethodDescription(MethodDeclaration md, AnnotationExpr annotationExpr, NodeList<MemberValuePair> pairs) {
         AtomicReference<JavadocDescription> description = new AtomicReference<>();
@@ -48,9 +49,12 @@ public class JavadocBlocktagSetter {
             pairs.stream()
                     .filter(memberValuePair -> memberValuePair.getNameAsString().equals("description"))
                     .forEach(memberValuePair -> {
-                        String value = memberValuePair.getValue().toString()
-                                .replace(" + ", "\n");
-                        description.updateAndGet(mdValue -> JavadocDescription.parseText(Utilities.replace(value + ".")));
+                        String value = memberValuePair.getValue().toString(); //.replace(" + ", "\n");
+                        String otherValue1 = Utilities.replace(value);
+                        String otherValue2 = otherValue1.replace("  + ", "\n");
+                        String otherValue3 = otherValue2.replace(" +  ", "\n");
+                        String otherValue4 = otherValue3.replace(" + ", "\n");
+                        description.updateAndGet(mdValue -> JavadocDescription.parseText(otherValue4 + "."));
                     });
         }
         return description.get();
@@ -58,29 +62,25 @@ public class JavadocBlocktagSetter {
 
     /**
      *
-     * sets javadoc @author tag
+     * defines javadoc @author tag
      */
     public void setAuthorTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
-//        this.javadoc = javadoc;
-//        this.pairs = pairs;
+
         String authorTag = Utilities.lowerCaseBlockTag("AUTHOR");
-        //AtomicReference<Javadoc> javadocBlockTag = new AtomicReference<>();
 
         pairs.stream()
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("author"))
                 .forEach(memberValuePair -> {
                     NodeList<Expression> values = memberValuePair.getValue()
-                            .asArrayInitializerExpr().getValues();
+                                                                    .asArrayInitializerExpr().getValues();
                     values.forEach(val -> javadoc.addBlockTag(authorTag, Utilities.replace(val.toString()))); });
     }
 
     /**
      *
-     * sets javadoc @version tag
+     * defines javadoc @version tag
      */
     public void setVersionTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
-//        this.javadoc = javadoc;
-//        this.pairs = pairs;
 
         String versionTag = Utilities.lowerCaseBlockTag("VERSION");
 
@@ -92,7 +92,7 @@ public class JavadocBlocktagSetter {
     }
 
     /**
-     * defines and set javadoc @param tag.
+     * defines javadoc @param tag for constructors.
      */
     public void setConstructorParamTag(ConstructorDeclaration cd, AnnotationExpr annotationExpr, Javadoc javadoc) {
 
@@ -108,7 +108,11 @@ public class JavadocBlocktagSetter {
                                     .filter(paramPair -> paramPair.getNameAsString().equals("description"))
                                     .forEach(memberValuePair -> {
                                         String value = memberValuePair.getValue().toString();
-                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), Utilities.replace(value));
+                                        String otherValue1 = Utilities.replace(value);
+                                        String otherValue2 = otherValue1.replace("  + ", "\n");
+                                        String otherValue3 = otherValue2.replace(" +  ", "\n");
+                                        String otherValue4 = otherValue3.replace(" + ", "\n");
+                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), otherValue4);
                                     });
 
                             ParamAnnotationExpr.remove();
@@ -117,6 +121,9 @@ public class JavadocBlocktagSetter {
         }
     }
 
+    /**
+     * defines javadoc @param tag for methods.
+     */
     public void setMethodParamTag(MethodDeclaration md, AnnotationExpr annotationExpr, Javadoc javadoc) {
 
         NodeList<Parameter> parameters = md.getParameters(); // gets constructor's parameter(s)
@@ -131,7 +138,11 @@ public class JavadocBlocktagSetter {
                                     .filter(paramPair -> paramPair.getNameAsString().equals("description"))
                                     .forEach(memberValuePair -> {
                                         String value = memberValuePair.getValue().toString();
-                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), Utilities.replace(value));
+                                        String otherValue1 = Utilities.replace(value);
+                                        String otherValue2 = otherValue1.replace("  + ", "\n");
+                                        String otherValue3 = otherValue2.replace(" +  ", "\n");
+                                        String otherValue4 = otherValue3.replace(" + ", "\n");
+                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), otherValue4);
                                     });
 
                             ParamAnnotationExpr.remove();
@@ -141,23 +152,9 @@ public class JavadocBlocktagSetter {
     }
 
     /**
-     * defines and sets @return tag
+     * defines @return tag
      */
-    public void setConstructorReturnTag(ConstructorDeclaration cd, Javadoc javadoc, NodeList<MemberValuePair> pairs) {
-
-        String returns = Utilities.lowerCaseBlockTag("RETURN");
-        pairs.stream()
-                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("returns"))
-                .forEach(memberValuePair -> {
-                    String value = memberValuePair.getValue().toString();
-                    javadoc.addBlockTag(returns, Utilities.replace(value)); });
-    }
-
-
-    /**
-     * defines and sets @return tag
-     */
-    public void setMethodReturnTag(MethodDeclaration md, Javadoc javadoc, NodeList<MemberValuePair> pairs) {
+    public void setReturnTag(MethodDeclaration md, Javadoc javadoc, NodeList<MemberValuePair> pairs) {
 
         String returns = Utilities.lowerCaseBlockTag("RETURN");
         if (!md.getType().isVoidType()) {  // if method returns a value i.e NOT void.
@@ -165,12 +162,16 @@ public class JavadocBlocktagSetter {
                     .filter(memberValuePair -> memberValuePair.getNameAsString().equals("returns"))
                     .forEach(memberValuePair -> {
                         String value = memberValuePair.getValue().toString();
-                        javadoc.addBlockTag(returns, Utilities.replace(value)); });
+                        String otherValue1 = Utilities.replace(value);
+                        String otherValue2 = otherValue1.replace("  + ", "\n");
+                        String otherValue3 = otherValue2.replace(" +  ", "\n");
+                        String otherValue4 = otherValue3.replace(" + ", "\n");
+                        javadoc.addBlockTag(returns, otherValue4); });
         }
     }
 
     /**
-     * defines and sets javadoc @throws tag.
+     * defines javadoc @throws tag for constructors.
      */
     public void setConstructorThrowTag(ConstructorDeclaration cd, Javadoc javadoc, NodeList<MemberValuePair> pairs) {
         NodeList<ReferenceType> thrownExceptions = cd.getThrownExceptions();  // gets all thrown exception(s) defined in method signature.
@@ -182,13 +183,13 @@ public class JavadocBlocktagSetter {
                     NodeList<Expression> exceptionValues = memberValuePair.getValue().asArrayInitializerExpr().getValues();
                     for (int i = 0; i < thrownExceptions.size(); i++) {
                         javadoc.addBlockTag(thr, thrownExceptions.get(i).asString(),
-                                Utilities.replace(exceptionValues.get(i).toString().replace(" + ", "") + "."));
+                                Utilities.replace(exceptionValues.get(i).toString().replace(" + ", "\n") + "."));
                     } });
     }
 
 
     /**
-     * defines and sets javadoc @throws tag.
+     * sets javadoc @throws tag for methods.
      */
     public void setMethodThrowTag(MethodDeclaration md, Javadoc javadoc, NodeList<MemberValuePair> pairs) {
         NodeList<ReferenceType> thrownExceptions = md.getThrownExceptions();  // gets all thrown exception(s) defined in method signature.
@@ -200,18 +201,16 @@ public class JavadocBlocktagSetter {
                     NodeList<Expression> exceptionValues = memberValuePair.getValue().asArrayInitializerExpr().getValues();
                     for (int i = 0; i < thrownExceptions.size(); i++) {
                         javadoc.addBlockTag(thr, thrownExceptions.get(i).asString(),
-                                Utilities.replace(exceptionValues.get(i).toString().replace(" + ", "") + "."));
+                                Utilities.replace(exceptionValues.get(i).toString().replace(" + ", "\n") + "."));
                     } });
     }
 
 
     /**
      *
-     * sets javadoc @see tag
+     * defines javadoc @see tag
      */
     public void setSeeTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
-//        this.javadoc = javadoc;
-//        this.pairs = pairs;
 
         String seeTag = Utilities.lowerCaseBlockTag("SEE");
 
@@ -219,12 +218,16 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("see"))
                 .forEach(memberValuePair -> {
                     String value = memberValuePair.getValue().toString();
-                    javadoc.addBlockTag(seeTag, Utilities.replace(value)); });
+                    String otherValue1 = Utilities.replace(value);
+                    String otherValue2 = otherValue1.replace("  + ", "");
+                    String otherValue3 = otherValue2.replace(" +  ", "");
+                    String otherValue4 = otherValue3.replace(" + ", "");
+                    javadoc.addBlockTag(seeTag, otherValue4); });
     }
 
     /**
      *
-     * sets javadoc @since tag
+     * defines javadoc @since tag
      */
     public void setSinceTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
 
@@ -239,7 +242,7 @@ public class JavadocBlocktagSetter {
 
     /**
      *
-     * sets javadoc @serial tag
+     * defines javadoc @serial tag
      */
     public void setSerialTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
         String serialTag = Utilities.lowerCaseBlockTag("SERIAL");
@@ -248,13 +251,17 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("serial"))
                 .forEach(memberValuePair -> {
                     String value = memberValuePair.getValue().toString();
-                    javadoc.addBlockTag(serialTag, Utilities.replace(value));
+                    String otherValue1 = Utilities.replace(value);
+                    String otherValue2 = otherValue1.replace("  + ", "\n");
+                    String otherValue3 = otherValue2.replace(" +  ", "\n");
+                    String otherValue4 = otherValue3.replace(" + ", "\n");
+                    javadoc.addBlockTag(serialTag, Utilities.replace(otherValue4));
                 });
     }
 
     /**
      *
-     * sets javadoc @serialField tag
+     * defines javadoc @serialField tag
      */
     public void setSerialFieldTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
         String serialFieldTag = Utilities.replace("serialField");
@@ -266,12 +273,12 @@ public class JavadocBlocktagSetter {
                     String noCommaValue = serialValues.toString().replace(",", "");
                     String valueWithoutBracketOpener = noCommaValue.replace("[", "");
                     String valueWithoutBracketCloser = valueWithoutBracketOpener.replace("]", "");
-                    String finalValue = valueWithoutBracketCloser.replace(" + ", "");
+                    String finalValue = valueWithoutBracketCloser.replace(" + ", "\n");
                     javadoc.addBlockTag(serialFieldTag, Utilities.replace(finalValue + ".")); });
     }
 
     /**
-     * defines and sets @serialData tag
+     * defines @serialData tag
      */
     public void setSerialDataTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
         String serialDataTag = "serialData";
@@ -280,12 +287,16 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("serialData"))
                 .forEach(memberValuePair -> {
                             String value = memberValuePair.getValue().toString();
-                            javadoc.addBlockTag(serialDataTag, Utilities.replace(value)); });
+                            String otherValue1 = Utilities.replace(value);
+                            String otherValue2 = otherValue1.replace("  + ", "\n");
+                            String otherValue3 = otherValue2.replace(" +  ", "\n");
+                            String otherValue4 = otherValue3.replace(" + ", "\n");
+                            javadoc.addBlockTag(serialDataTag, otherValue4); });
     }
 
     /**
      *
-     * sets javadoc @deprecated tag
+     * defines javadoc @deprecated tag
      */
     public void setDeprecatedTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
         String deprecatedTag = Utilities.lowerCaseBlockTag("DEPRECATED");
@@ -294,6 +305,10 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("deprecated"))
                 .forEach(memberValuePair -> {
                     String value = memberValuePair.getValue().toString();
-                    javadoc.addBlockTag(deprecatedTag, Utilities.replace(value)); });
+                    String otherValue1 = Utilities.replace(value);
+                    String otherValue2 = otherValue1.replace("  + ", "\n");
+                    String otherValue3 = otherValue2.replace(" +  ", "\n");
+                    String otherValue4 = otherValue3.replace(" + ", "\n");
+                    javadoc.addBlockTag(deprecatedTag, otherValue4); });
     }
 }

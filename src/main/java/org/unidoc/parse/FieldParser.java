@@ -10,17 +10,21 @@ import org.unidoc.annotations.FieldDoc;
 import org.unidoc.annotations.MethodDoc;
 import org.unidoc.core.FieldDocumentation;
 
+import java.util.List;
 import java.util.Optional;
 
-@ClassDoc(version = "1.0.0",
-        author = "<a href=mailto:dinneyacharles5@gmail.com>Dinneya Charles</a>",
-        description = "class to parse variables."
-)
+
 public class FieldParser extends VoidVisitorAdapter<Void> {
 
     private final Log log = LogFactory.getLog(this.getClass());
 
-    @MethodDoc(description = "Overridden method")
+    /**
+     * Converts unidoc field annotations to java doc comments.
+     * Also removes @FieldDoc annotations from source code
+     *
+     * @param fd field(s) to be accessed
+     * @param arg void
+     */
     @Override
     public void visit(FieldDeclaration fd, Void arg) {
         super.visit(fd, arg);

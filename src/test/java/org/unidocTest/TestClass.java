@@ -6,21 +6,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @ClassDoc(
-        description = "<h1>A class used for test</h1> " +
+        description = "<h1>A class used for test</h1>" +
                 "<p>" +
                 "This class is just for test. blah blah blah blah blah blah blah" +
-                "<p> \n" +
-                "<pre> \n" +
-                "public class JavadocTest {\n" +
-                "   &#64;SuppressWarnings \n" +
-                "   public List&#60;String&#62; generics(){ \n" +
-                "       // '@', '<' and '>'  have to be escaped with HTML codes \n" +
-                "   } \n" +
-                "} \n" +
-                "</pre> \n" +
-                "hhjlkhk " +
-                "{@link #getTest(int) getTest} \n" +
-                " hfghdsd",
+                "<p>" +
+                "<pre>" +
+                "public class JavadocTest {" +
+                "   &#64;SuppressWarnings" +
+                "   public List&#60;String&#62; generics(){" +
+                "       // '@', '<' and '>'  have to be escaped with HTML codes" +
+                "   }" +
+                "}" +
+                "</pre>" +
+                "hhjlkhk      " +
+                "hdsksjsha " +
+                "{@link #getTest(int) getTest}" +
+                "hfghdsd" +
+                " hmmmm",
         author = {"Dinneya Charles", "Emanuel Ninja"},
         version = "1.0.0",
         see = "<a href=\"URL#value\">label</a>",
@@ -34,7 +36,8 @@ public class TestClass {
             see = "<a href=\"URL#value\">label</a>",
             since = "2020-11-07",
             serial = "djdjknjd",
-            serialField = {"test", "String", "sddsjj"},
+            serialField = {"test", "String", "sddsjj" +
+                    " hfkdks"},
             deprecated = "no"
             )
     private String test = "global";
@@ -48,24 +51,27 @@ public class TestClass {
 
     @ConstructorDoc(
                     description = "Testclass constructor with one parameter",
-                    returns = "an instance",
                     see = "<a href=\"URL#value\">label</a>",
                     since = "2020-11-07",
                     serialData = "...",
-                    exceptions = {"this file..."},
+                    exceptions = {"this file... " +
+                            "kjdfdllkkd"},
                     deprecated = "no"
     )
     public TestClass(@ParamDoc(description = "test parameter") String test) throws FileNotFoundException {
     }
 
-    @MethodDoc(returns = "test return")
-    public String getTest(@ParamDoc(description = "dbfihs") int age)  {
+    @MethodDoc(returns = "test return " +
+            "is ...")
+    public String getTest(@ParamDoc(description = "dbfihs " +
+                                    "bkklk...") int age)  {
         return test;
     }
 
 
     @MethodDoc(
-                description = "this is a test method",
+                description = "this is a test method " +
+                        "and...",
                 exceptions = {"enjo " +
                     "hjdjdkjjkdj",
                     "piss"},
