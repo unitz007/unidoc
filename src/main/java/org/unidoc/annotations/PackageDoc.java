@@ -5,10 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
-@Retention(value = RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface ClassDoc {
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PACKAGE)
+public @interface PackageDoc {
 
     /**
      *
@@ -36,20 +35,7 @@ public @interface ClassDoc {
 
     /**
      *
-     * @return when class was created
+     * @return when package was created
      */
     String since() default "";
-
-    /**
-     *
-     * @return whether the class should be included in the serialized form page
-     */
-    String serial() default "";
-
-    /**
-     * recommends that a class shouldn't be used
-     * @return why the class shouldn't be used and any reference
-     */
-    String deprecated() default ""; // @deprecated
-
 }

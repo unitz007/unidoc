@@ -13,8 +13,10 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
     private final Log log = LogFactory.getLog(this.getClass()); // logger
 
     /**
-     * parses constructor.
-     * @param cd Method to be accessed
+     * Converts unidoc constructor annotations to java doc comments.
+     * Also removes @ConstructorDoc annotations from source code
+     *
+     * @param cd constructor(s) to be accessed
      * @param arg void
      */
     public void visit(ConstructorDeclaration cd, Void arg) {

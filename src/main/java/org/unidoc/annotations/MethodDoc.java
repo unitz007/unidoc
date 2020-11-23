@@ -11,19 +11,19 @@ public @interface MethodDoc {
 
     /**
      *
-     * @return description of method
+     * @return description
      */
     String description() default ""; // description
 
     /**
      *
-     * @return params
+     * @return name(s) of parameter(s), type and description
      */
     String[] params() default "";
 
     /**
      *
-     * @return description of return value
+     * @return info about return type
      */
     String returns() default "";
 
@@ -35,25 +35,25 @@ public @interface MethodDoc {
 
     /**
      *
-     * @return @see in javadoc
+     * @return associated links and references
      */
     String see() default "";
 
     /**
      *
-     * @return @since in javadoc
+     * @return when method was created
      */
     String since() default "";
 
     /**
      *
-     * @return @serialData in javadoc
+     * @return description of the data to be serialized, including it's type and order
      */
     String serialData() default "";
 
     /**
-     *
-     * @return @deprecated in javadoc
+     * recommends that a class shouldn't be used
+     * @return why the method shouldn't be used and any reference
      */
     String deprecated() default "";
 }

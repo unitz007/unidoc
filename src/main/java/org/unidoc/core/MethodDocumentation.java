@@ -10,6 +10,9 @@ import org.unidoc.annotations.MethodDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
 import org.unidoc.utils.Utilities;
 
+/**
+ * has methods for transforming @MethodDoc annotations to java doc comments
+ */
 public class MethodDocumentation {
 
     private Javadoc javadoc;
@@ -19,7 +22,7 @@ public class MethodDocumentation {
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
 
     /**
-     * constructor with one parameter.
+     * assigns value to pairs and annotationExpr
      * @param md method declaration
      */
     public MethodDocumentation(MethodDeclaration md) {
@@ -34,7 +37,7 @@ public class MethodDocumentation {
     }
 
     /**
-     * creates and return an instance of JavadocDescription.
+     * sets description of method
      * @return an instance of JavadocDescription
      */
     protected JavadocDescription description() {
@@ -42,57 +45,57 @@ public class MethodDocumentation {
     }
 
     /**
-     * defines and sets javadoc @param tag.
+     * sets javadoc @param tag.
      */
     private void paramTag() {
         javadocBlocktagSetter.setMethodParamTag(md, annotationExpr, javadoc);
     }
 
     /**
-     * defines and sets @return tag
+     * sets @return tag
      */
     private void returnTag() {
-        javadocBlocktagSetter.setMethodReturnTag(md, javadoc, pairs);
+        javadocBlocktagSetter.setReturnTag(md, javadoc, pairs);
     }
 
     /**
-     * defines and sets javadoc @throws tag.
+     * sets javadoc @throws tag.
      */
     private void throwTag() {
         javadocBlocktagSetter.setMethodThrowTag(md, javadoc, pairs);
     }
 
     /**
-     * defines and sets @see tag
+     * sets @see tag
      */
     private void seeTag() {
         javadocBlocktagSetter.setSeeTag(javadoc, pairs);
     }
 
     /**
-     * defines and sets @since tag
+     * sets @since tag
      */
     private void sinceTag() {
         javadocBlocktagSetter.setSinceTag(javadoc, pairs);
     }
 
     /**
-     * defines and sets @serialData tag
+     * sets @serialData tag
      */
     private void serialDataTag() {
         javadocBlocktagSetter.setSerialDataTag(javadoc, pairs);
     }
 
     /**
-     * defines and sets @deprecated tag
+     * sets @deprecated tag
      */
     private void deprecatedTag() {
         javadocBlocktagSetter.setDeprecatedTag(javadoc, pairs);
     }
 
     /**
-     * defines and sets javadoc.
-     * @return Javadoc
+     * calls methods for setting javadoc comments.
+     * @return javadoc
      */
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(description()); // instantiates javadoc.

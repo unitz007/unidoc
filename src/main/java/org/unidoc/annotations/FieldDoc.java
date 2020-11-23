@@ -11,37 +11,37 @@ public @interface FieldDoc {
 
     /**
      *
-     * @return description of field
+     * @return description
      */
     String description() default "";
 
     /**
      *
-     * @return @see of field
+     * @return associated links and references
      */
     String see() default "";
 
     /**
      *
-     * @return @since
+     * @return when field was created
      */
     String since() default "";
 
     /**
      *
-     * @return @serial
+     * @return description of the field, including acceptable serializable values
      */
     String serial() default "";
 
     /**
      *
-     * @return @serialField
+     * @return field name, type and description of an ObjectStreamField
      */
     String[] serialField() default "";
 
     /**
-     *
-     * @return @deprecated
+     * recommends that a class shouldn't be used
+     * @return why the field shouldn't be used and any reference
      */
     String deprecated() default "";
 

@@ -11,7 +11,7 @@ public @interface ParamDoc {
 
     /**
      *
-     * @return description of parameter
+     * @return description of parameter(s)
      */
     String description() default "";
 }

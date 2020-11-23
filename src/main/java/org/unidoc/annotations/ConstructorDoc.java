@@ -11,49 +11,43 @@ public @interface ConstructorDoc {
 
     /**
      *
-     * @return description of constructor
+     * @return description
      */
-    String description() default ""; // description
+    String description() default "";
 
     /**
      *
-     * @return params
+     * @return name(s) of parameter(s), type and description
      */
     String[] params() default "";
 
     /**
      *
-     * @return description of return value
-     */
-    String returns() default "";
-
-    /**
-     *
-     * @return @see in javadoc
+     * @return associated links and references
      */
     String see() default "";
 
     /**
      *
-     * @return @since in javadoc
+     * @return when constructor was created
      */
     String since() default "";
 
     /**
      *
-     * @return @serialData in javadoc
+     * @return description of the data to be serialized, including it's type and order
      */
     String serialData() default "";
 
     /**
      *
-     * @return exceptions
+     * @return thrown exception(s) with description
      */
     String[] exceptions() default "";
 
     /**
-     *
-     * @return @deprecated in javadoc
+     * recommends that a class shouldn't be used
+     * @return why the constructor shouldn't be used and any reference
      */
     String deprecated() default "";
 }
