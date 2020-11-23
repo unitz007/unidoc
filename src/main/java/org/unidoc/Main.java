@@ -32,10 +32,7 @@ public class Main {
         SourceRoot sourceRoot = new SourceRoot(MODULE_PATH);
         sourceRoot.tryToParse();
         List<CompilationUnit> cu = sourceRoot.getCompilationUnits();
-        //Path path = Paths.get(MODULE_PATH);
-        //File file = new File(MODULE_PATH);
-        //CompilationUnit cu = StaticJavaParser.parse(MODULE_PATH);
-        //CompilationUnit cu = StaticJavaParser.parse(file);
+
         for (CompilationUnit c : cu) {
             VoidVisitorAdapter<Void> field;
             field = new PackageParser();
@@ -49,12 +46,13 @@ public class Main {
             field = new InterfaceParser();
             field.visit(c, null);
             field = new ConstructorParser();
+            field.visit(c, null);
         }
 
         FileOutputStream fileOutStream = new FileOutputStream(new File(System.getProperty("user.dir") + "/src/test/resources/TestClass.java"));
         fileOutStream.write(cu.toString().getBytes());
         fileOutStream.close();
-            //System.out.println(cu);
+        System.out.println(cu);
 
     }
 }

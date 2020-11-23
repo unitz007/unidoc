@@ -85,12 +85,6 @@ public class PackageDocumentation {
         versionTag();
         seeTag();
         sinceTag();
-        return javadoc.toComment();
+        return javadoc.toComment().asJavadocComment();
     }
-
-
-//    public JavadocComment get() {
-//        JavadocComment jdc = new JavadocComment("fuck this");
-//        return jdc;
-//    }
 }
