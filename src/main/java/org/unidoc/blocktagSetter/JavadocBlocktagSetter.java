@@ -218,11 +218,10 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("see"))
                 .forEach(memberValuePair -> {
                     String value = memberValuePair.getValue().toString();
-                    String otherValue1 = Utilities.replace(value);
-                    String otherValue2 = otherValue1.replace("  + ", "");
-                    String otherValue3 = otherValue2.replace(" +  ", "");
-                    String otherValue4 = otherValue3.replace(" + ", "");
-                    javadoc.addBlockTag(seeTag, otherValue4); });
+                    String otherValue = Utilities.replace(value);
+                    String otherValue1 = otherValue.replace(" + ", "");
+
+                    javadoc.addBlockTag(seeTag, otherValue1); });
     }
 
     /**
@@ -251,11 +250,9 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("serial"))
                 .forEach(memberValuePair -> {
                     String value = memberValuePair.getValue().toString();
-                    String otherValue1 = Utilities.replace(value);
-                    String otherValue2 = otherValue1.replace("  + ", "\n");
-                    String otherValue3 = otherValue2.replace(" +  ", "\n");
-                    String otherValue4 = otherValue3.replace(" + ", "\n");
-                    javadoc.addBlockTag(serialTag, Utilities.replace(otherValue4));
+                    String otherValue = Utilities.replace(value);
+                    String otherValue1 = otherValue.replace(" + ", "\n");
+                    javadoc.addBlockTag(serialTag, Utilities.replace(otherValue1));
                 });
     }
 
@@ -273,8 +270,8 @@ public class JavadocBlocktagSetter {
                     String noCommaValue = serialValues.toString().replace(",", "");
                     String valueWithoutBracketOpener = noCommaValue.replace("[", "");
                     String valueWithoutBracketCloser = valueWithoutBracketOpener.replace("]", "");
-                    String finalValue = valueWithoutBracketCloser.replace(" + ", "\n");
-                    javadoc.addBlockTag(serialFieldTag, Utilities.replace(finalValue + ".")); });
+                    String otherValue = valueWithoutBracketCloser.replace(" + ", "\n");
+                    javadoc.addBlockTag(serialFieldTag, Utilities.replace(otherValue + ".")); });
     }
 
     /**
@@ -287,11 +284,9 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("serialData"))
                 .forEach(memberValuePair -> {
                             String value = memberValuePair.getValue().toString();
-                            String otherValue1 = Utilities.replace(value);
-                            String otherValue2 = otherValue1.replace("  + ", "\n");
-                            String otherValue3 = otherValue2.replace(" +  ", "\n");
-                            String otherValue4 = otherValue3.replace(" + ", "\n");
-                            javadoc.addBlockTag(serialDataTag, otherValue4); });
+                            String otherValue = Utilities.replace(value);
+                            String otherValue1 = otherValue.replace(" + ", "\n");
+                            javadoc.addBlockTag(serialDataTag, otherValue1); });
     }
 
     /**
@@ -305,10 +300,8 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("deprecated"))
                 .forEach(memberValuePair -> {
                     String value = memberValuePair.getValue().toString();
-                    String otherValue1 = Utilities.replace(value);
-                    String otherValue2 = otherValue1.replace("  + ", "\n");
-                    String otherValue3 = otherValue2.replace(" +  ", "\n");
-                    String otherValue4 = otherValue3.replace(" + ", "\n");
-                    javadoc.addBlockTag(deprecatedTag, otherValue4); });
+                    String otherValue = Utilities.replace(value);
+                    String otherValue1 = otherValue.replace(" + ", "\n");
+                    javadoc.addBlockTag(deprecatedTag, otherValue1); });
     }
 }

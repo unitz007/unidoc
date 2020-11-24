@@ -1,4 +1,4 @@
-package org.unidocTest;
+package org.unidocTest.api;
 
 import org.unidoc.annotations.*;
 
@@ -35,9 +35,9 @@ public class TestClass {
     @FieldDoc(description = "test field",
             see = "<a href=\"URL#value\">label</a>",
             since = "2020-11-07",
-            serial = "djdjknjd",
-            serialField = {"test", "String", "sddsjj" +
-                    " hfkdks"},
+            serial = "djdjknjdghhhgh",
+            serialField = {"test", "String", "sddsjj " +
+                    "hfkdks"},
             deprecated = "no"
             )
     private String test = "global";
@@ -88,4 +88,5 @@ public class TestClass {
     }
 
 }
+
 
