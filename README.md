@@ -25,25 +25,29 @@ The attributes of each annotation match the description and tags of java doc com
 An example:
 
 ```
-java doc doc comment:
-
-/**
-*Class description
-*...
-*
-*@author David
-*\
-public class ExampleClass {}
-
-```
-
-```
 Unidoc format:
 
-@ClassDoc(description = "Class description ...", author = "David")
+@ClassDoc(description = "Class description describes the class." + 
+          "...", 
+          author = "David")
 public class ExampleClass {}
 
-```  
+```
+
+```
+javadoc doc comment:
+
+/**
+* Class description describes the class.
+* ...
+*
+* @author David
+*/
+public class ExampleClass {}
+
+```
+
+  
 
 ## Contributing
 
