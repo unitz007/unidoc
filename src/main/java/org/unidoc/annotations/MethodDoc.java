@@ -52,6 +52,12 @@ public @interface MethodDoc {
     String serialData() default "";
 
     /**
+     * declares that the method shouldn't be documented
+     *
+     */
+    String hidden() default "";
+
+    /**
      * recommends that a class shouldn't be used
      * @return why the method shouldn't be used and any reference
      */

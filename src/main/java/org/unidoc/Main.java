@@ -20,7 +20,7 @@ import java.util.List;
 
 public class Main {
 
-    //private static final String FILE_PATH = System.getProperty("user.dir") + "/src/test/java/org/unidocTest/api/package-info.java";
+    //private static final String FILE_PATH = System.getProperty("user.dir") + "/src/test/java/org/unidocTest/api/TestAnnotation.java";
     private static final Path MODULE_PATH = Paths.get(System.getProperty("user.dir") + "/src/test/java/org/unidocTest/api");
 
     /**
@@ -36,12 +36,20 @@ public class Main {
         cu.stream()
                 .forEach(compilationUnit -> {
                     VoidVisitorAdapter<Void> declarations;
+                    declarations = new ModuleParser();
+                    declarations.visit(compilationUnit, null);
                     declarations = new PackageParser();
                     declarations.visit(compilationUnit, null);
                     declarations = new InterfaceParser();
                     declarations.visit(compilationUnit, null);
                     declarations = new ClassParser();
                     declarations.visit(compilationUnit, null); // class declaration
+                    declarations = new EnumParser();
+                    declarations.visit(compilationUnit, null);
+                    declarations = new AnnotationParser();
+                    declarations.visit(compilationUnit, null);
+                    declarations = new AnnotationMemberParser();
+                    declarations.visit(compilationUnit, null);
                     declarations = new ConstructorParser();
                     declarations.visit(compilationUnit, null);
                     declarations = new FieldParser();
@@ -65,7 +73,9 @@ public class Main {
         }
 
 //        CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
-//        VoidVisitorAdapter<Void> declaration = new PackageParser();
+//        VoidVisitorAdapter<Void> declaration = new AnnotationParser();
+//        declaration.visit(cu, null);
+//        declaration = new AnnotationMemberParser();
 //        declaration.visit(cu, null);
 //
 //        FileOutputStream fileOutputStream = new FileOutputStream(new File(System.getProperty("user.dir") + "/src/test/resources/package-info.java"));

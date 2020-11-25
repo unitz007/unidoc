@@ -1,6 +1,7 @@
 package org.unidoc.blocktagSetter;
 
 import com.github.javaparser.ast.NodeList;
+import com.github.javaparser.ast.body.AnnotationMemberDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
@@ -29,11 +30,9 @@ public class JavadocBlocktagSetter {
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("description"))
                 .forEach(memberValuePair -> {
                     String value = memberValuePair.getValue().toString(); //.replace(" + ", "\n");
-                    String otherValue1 = Utilities.replace(value);
-                    String otherValue2 = otherValue1.replace("  + ", "\n");
-                    String otherValue3 = otherValue2.replace(" +  ", "\n");
-                    String otherValue4 = otherValue3.replace(" + ", "\n");
-                    description.set(JavadocDescription.parseText(otherValue4)); });
+                    String otherValue = Utilities.replace(value);
+                    String otherValue1 = otherValue.replace(" + ", "\n");
+                    description.set(JavadocDescription.parseText(otherValue1)); });
         return description.get();
     }
 
@@ -50,11 +49,9 @@ public class JavadocBlocktagSetter {
                     .filter(memberValuePair -> memberValuePair.getNameAsString().equals("description"))
                     .forEach(memberValuePair -> {
                         String value = memberValuePair.getValue().toString(); //.replace(" + ", "\n");
-                        String otherValue1 = Utilities.replace(value);
-                        String otherValue2 = otherValue1.replace("  + ", "\n");
-                        String otherValue3 = otherValue2.replace(" +  ", "\n");
-                        String otherValue4 = otherValue3.replace(" + ", "\n");
-                        description.updateAndGet(mdValue -> JavadocDescription.parseText(otherValue4 + "."));
+                        String otherValue = Utilities.replace(value);
+                        String otherValue1 = otherValue.replace(" + ", "\n");
+                        description.updateAndGet(mdValue -> JavadocDescription.parseText(otherValue1 + "."));
                     });
         }
         return description.get();
@@ -108,11 +105,9 @@ public class JavadocBlocktagSetter {
                                     .filter(paramPair -> paramPair.getNameAsString().equals("description"))
                                     .forEach(memberValuePair -> {
                                         String value = memberValuePair.getValue().toString();
-                                        String otherValue1 = Utilities.replace(value);
-                                        String otherValue2 = otherValue1.replace("  + ", "\n");
-                                        String otherValue3 = otherValue2.replace(" +  ", "\n");
-                                        String otherValue4 = otherValue3.replace(" + ", "\n");
-                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), otherValue4);
+                                        String otherValue = Utilities.replace(value);
+                                        String otherValue1 = otherValue.replace(" + ", "\n");
+                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), otherValue1);
                                     });
 
                             ParamAnnotationExpr.remove();
@@ -138,11 +133,9 @@ public class JavadocBlocktagSetter {
                                     .filter(paramPair -> paramPair.getNameAsString().equals("description"))
                                     .forEach(memberValuePair -> {
                                         String value = memberValuePair.getValue().toString();
-                                        String otherValue1 = Utilities.replace(value);
-                                        String otherValue2 = otherValue1.replace("  + ", "\n");
-                                        String otherValue3 = otherValue2.replace(" +  ", "\n");
-                                        String otherValue4 = otherValue3.replace(" + ", "\n");
-                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), otherValue4);
+                                        String otherValue = Utilities.replace(value);
+                                        String otherValue1 = otherValue.replace(" + ", "\n");
+                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), otherValue1);
                                     });
 
                             ParamAnnotationExpr.remove();
@@ -154,7 +147,7 @@ public class JavadocBlocktagSetter {
     /**
      * defines @return tag
      */
-    public void setReturnTag(MethodDeclaration md, Javadoc javadoc, NodeList<MemberValuePair> pairs) {
+    public void setMethodReturnTag(MethodDeclaration md, Javadoc javadoc, NodeList<MemberValuePair> pairs) {
 
         String returns = Utilities.lowerCaseBlockTag("RETURN");
         if (!md.getType().isVoidType()) {  // if method returns a value i.e NOT void.
@@ -162,11 +155,25 @@ public class JavadocBlocktagSetter {
                     .filter(memberValuePair -> memberValuePair.getNameAsString().equals("returns"))
                     .forEach(memberValuePair -> {
                         String value = memberValuePair.getValue().toString();
-                        String otherValue1 = Utilities.replace(value);
-                        String otherValue2 = otherValue1.replace("  + ", "\n");
-                        String otherValue3 = otherValue2.replace(" +  ", "\n");
-                        String otherValue4 = otherValue3.replace(" + ", "\n");
-                        javadoc.addBlockTag(returns, otherValue4); });
+                        String otherValue = Utilities.replace(value);
+                        String otherValue1 = otherValue.replace(" + ", "\n");
+                        javadoc.addBlockTag(returns, otherValue1); });
+        }
+    }
+    /**
+     * defines @return tag
+     */
+    public void setAnnotationMemberReturnTag(AnnotationMemberDeclaration aed, Javadoc javadoc, NodeList<MemberValuePair> pairs) {
+
+        String returns = Utilities.lowerCaseBlockTag("RETURN");
+        if (!aed.getType().isVoidType()) {
+            pairs.stream()
+                    .filter(memberValuePair -> memberValuePair.getNameAsString().equals("returns"))
+                    .forEach(memberValuePair -> {
+                        String value = memberValuePair.getValue().toString();
+                        String otherValue = Utilities.replace(value);
+                        String otherValue1 = otherValue.replace(" + ", "\n");
+                        javadoc.addBlockTag(returns, otherValue1); });
         }
     }
 
@@ -261,7 +268,7 @@ public class JavadocBlocktagSetter {
      * defines javadoc @serialField tag
      */
     public void setSerialFieldTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
-        String serialFieldTag = Utilities.replace("serialField");
+        String serialFieldTag = "serialField";
 
         pairs.stream()
                 .filter(memberValuePair -> memberValuePair.getNameAsString().equals("serialField"))
@@ -287,6 +294,58 @@ public class JavadocBlocktagSetter {
                             String otherValue = Utilities.replace(value);
                             String otherValue1 = otherValue.replace(" + ", "\n");
                             javadoc.addBlockTag(serialDataTag, otherValue1); });
+    }
+
+    /**
+     * defines @hidden tag
+     */
+    public void setHiddenTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
+        String hiddenTag = "hidden";
+
+        pairs.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("hidden"))
+                .forEach(memberValuePair -> {
+                    javadoc.addBlockTag(hiddenTag);
+                });
+
+    }
+
+    /**
+     *
+     * defines javadoc @provides tag
+     */
+    public void setProvidesTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
+
+        String providesTag = "PROVIDES";
+
+        pairs.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("provides"))
+                .forEach(memberValuePair -> {
+                    NodeList<Expression> providesValues = memberValuePair.getValue().asArrayInitializerExpr().getValues();
+                    String noCommaValue = providesValues.toString().replace(",", "");
+                    String valueWithoutBracketOpener = noCommaValue.replace("[", "");
+                    String valueWithoutBracketCloser = valueWithoutBracketOpener.replace("]", "");
+                    String otherValue = valueWithoutBracketCloser.replace(" + ", "\n");
+                    javadoc.addBlockTag(providesTag, Utilities.replace(otherValue + ".")); });
+    }
+
+    /**
+     *
+     * defines javadoc @uses tag
+     */
+    public void setUsesTag(Javadoc javadoc, NodeList<MemberValuePair> pairs) {
+
+        String usesTag = "USES";
+
+        pairs.stream()
+                .filter(memberValuePair -> memberValuePair.getNameAsString().equals("uses"))
+                .forEach(memberValuePair -> {
+                    NodeList<Expression> usesValues = memberValuePair.getValue().asArrayInitializerExpr().getValues();
+                    String noCommaValue = usesValues.toString().replace(",", "");
+                    String valueWithoutBracketOpener = noCommaValue.replace("[", "");
+                    String valueWithoutBracketCloser = valueWithoutBracketOpener.replace("]", "");
+                    String otherValue = valueWithoutBracketCloser.replace(" + ", "\n");
+                    javadoc.addBlockTag(usesTag, Utilities.replace(otherValue + ".")); });
     }
 
     /**

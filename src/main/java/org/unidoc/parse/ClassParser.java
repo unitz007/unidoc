@@ -18,10 +18,10 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * converts unidoc class annotations to java doc comments.
+     * converts unidoc class annotations to javadoc comments.
      * Also removes @ClassDoc annotations from source code
      *
-     * @param cd class(es) to be accessed
+     * @param cd class to be accessed
      * @param arg void
      */
     @Override
@@ -38,3 +38,4 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
         }
     }
 }
+

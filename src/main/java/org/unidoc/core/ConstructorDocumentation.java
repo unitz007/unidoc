@@ -45,6 +45,14 @@ public class ConstructorDocumentation {
     }
 
     /**
+     *
+     * sets javadoc @version tag
+     */
+    public void versionTag() {
+        javadocBlocktagSetter.setVersionTag(javadoc, pairs);
+    }
+
+    /**
      * sets javadoc @param tag.
      */
     private void paramTag() {
@@ -73,10 +81,11 @@ public class ConstructorDocumentation {
     }
 
     /**
-     * sets @serialData tag
+     *
+     * sets javadoc @hidden tag
      */
-    private void serialDataTag() {
-        javadocBlocktagSetter.setSerialDataTag(javadoc, pairs);
+    private void hiddenTag() {
+        javadocBlocktagSetter.setHiddenTag(javadoc, pairs);
     }
 
     /**
@@ -92,11 +101,12 @@ public class ConstructorDocumentation {
      */
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(description());
+        versionTag();
         paramTag();
         throwTag();
         seeTag();
         sinceTag();
-        serialDataTag();
+        hiddenTag();
         deprecatedTag();
         return javadoc;
     }

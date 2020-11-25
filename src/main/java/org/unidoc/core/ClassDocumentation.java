@@ -76,8 +76,16 @@ public class ClassDocumentation {
      *
      * sets javadoc @serial tag
      */
-    private void serialTag() {
-        javadocBlocktagSetter.setSerialTag(javadoc, pairs);
+    private void serialFieldTag() {
+        javadocBlocktagSetter.setSerialFieldTag(javadoc, pairs);
+    }
+
+    /**
+     *
+     * sets javadoc @hidden tag
+     */
+    private void hiddenTag() {
+        javadocBlocktagSetter.setHiddenTag(javadoc, pairs);
     }
 
     /**
@@ -98,7 +106,8 @@ public class ClassDocumentation {
         versionTag();
         seeTag();
         sinceTag();
-        serialTag();
+        serialFieldTag();
+        hiddenTag();
         deprecatedTag();
         return javadoc;
     }

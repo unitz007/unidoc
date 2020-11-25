@@ -19,10 +19,10 @@ public class FieldParser extends VoidVisitorAdapter<Void> {
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Converts unidoc field annotations to java doc comments.
+     * Converts unidoc field annotations to javadoc comments.
      * Also removes @FieldDoc annotations from source code
      *
-     * @param fd field(s) to be accessed
+     * @param fd field to be assessed
      * @param arg void
      */
     @Override

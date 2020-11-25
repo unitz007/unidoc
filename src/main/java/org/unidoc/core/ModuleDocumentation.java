@@ -1,39 +1,41 @@
 package org.unidoc.core;
 
 import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.MemberValuePair;
+import com.github.javaparser.ast.modules.ModuleDeclaration;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
-import org.unidoc.annotations.PackageDoc;
+import org.unidoc.annotations.ModuleDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
 
 import java.util.Optional;
 
 /**
- * has methods for transforming @PackageDoc annotations to java doc comments
+ * has methods for transforming @ModuleDoc annotations to java doc comments
  */
-public class PackageDocumentation {
+public class ModuleDocumentation {
 
-    private NodeList<MemberValuePair> pairs;
     private Javadoc javadoc;
-    private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+    private NodeList<MemberValuePair> pairs;
+    JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
 
     /**
      * assigns value to pairs
-     * @param pd package declaration
+     * @param mdd module declaration
      */
-    public PackageDocumentation(PackageDeclaration pd) {
-        Optional<AnnotationExpr> annotationByClass = pd.getAnnotationByClass(PackageDoc.class);
-        annotationByClass.ifPresent(annotationExpr -> {
-            this.pairs = annotationExpr.asNormalAnnotationExpr().getPairs();
-        });
+    public ModuleDocumentation(ModuleDeclaration mdd) {
+        Optional<AnnotationExpr> expr = mdd.getAnnotationByClass(ModuleDoc.class);
+        if (expr.isPresent()) {
+            expr.ifPresent(annotation -> {
+                pairs = annotation.asNormalAnnotationExpr().getPairs();
+            });
+        }
     }
 
     /**
-     * sets description of package
+     * sets description of module
      * @return javadoc description
      */
     private JavadocDescription description() {
@@ -60,7 +62,7 @@ public class PackageDocumentation {
      *
      * sets javadoc @see tag
      */
-    public void seeTag() {
+    private void seeTag() {
         javadocBlocktagSetter.setSeeTag(javadoc, pairs);
     }
 
@@ -68,7 +70,7 @@ public class PackageDocumentation {
      *
      * sets javadoc @since tag
      */
-    public void sinceTag() {
+    private void sinceTag() {
         javadocBlocktagSetter.setSinceTag(javadoc, pairs);
     }
 
@@ -78,6 +80,30 @@ public class PackageDocumentation {
      */
     private void serialFieldTag() {
         javadocBlocktagSetter.setSerialFieldTag(javadoc, pairs);
+    }
+
+    /**
+     *
+     * sets javadoc @provides tag
+     */
+    public void providesTag() {
+        javadocBlocktagSetter.setProvidesTag(javadoc, pairs);
+    }
+
+    /**
+     *
+     * sets javadoc @uses tag
+     */
+    public void usesTag() {
+        javadocBlocktagSetter.setUsesTag(javadoc, pairs);
+    }
+
+    /**
+     *
+     * sets javadoc @deprecated tag
+     */
+    public void deprecatedTag() {
+        javadocBlocktagSetter.setDeprecatedTag(javadoc, pairs);
     }
 
     /**
@@ -91,6 +117,10 @@ public class PackageDocumentation {
         seeTag();
         sinceTag();
         serialFieldTag();
+        providesTag();
+        usesTag();
+        deprecatedTag();
         return javadoc.toComment().asJavadocComment();
     }
+
 }

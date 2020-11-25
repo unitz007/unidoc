@@ -46,6 +46,13 @@ public @interface InterfaceDoc {
     String serial() default "";
 
     /**
+     * declares that the interface shouldn't be documented
+     *
+     */
+    String hidden() default "";
+
+
+    /**
      * recommends that a interface shouldn't be used
      * @return why the interface shouldn't be used and any reference
      */

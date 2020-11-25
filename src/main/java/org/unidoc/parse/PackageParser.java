@@ -20,10 +20,10 @@ public class PackageParser extends VoidVisitorAdapter<Void> {
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Converts unidoc package annotations to java doc comments.
+     * Converts unidoc package annotations to javadoc comments.
      * Also removes @PackageDoc annotations from source code
      *
-     * @param pd package(s) to be accessed
+     * @param pd package to be assessed
      * @param arg void
      */
     @Override

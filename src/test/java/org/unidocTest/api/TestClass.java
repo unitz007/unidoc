@@ -28,6 +28,7 @@ import java.io.IOException;
         see = "<a href=\"URL#value\">label</a>",
         since = "2020-11-06",
         serial = "include",
+        hidden = "hghh",
         deprecated = "no"
 )
 public class TestClass {
@@ -53,7 +54,6 @@ public class TestClass {
                     description = "Testclass constructor with one parameter",
                     see = "<a href=\"URL#value\">label</a>",
                     since = "2020-11-07",
-                    serialData = "...",
                     exceptions = {"this file... " +
                             "kjdfdllkkd"},
                     deprecated = "no"
