@@ -35,18 +35,18 @@ public @interface ConstructorDoc {
 
     /**
      *
-     * @return description of the data to be serialized, including it's type and order
-     */
-    String serialData() default "";
-
-    /**
-     *
      * @return thrown exception(s) with description
      */
     String[] exceptions() default "";
 
     /**
-     * recommends that a class shouldn't be used
+     * declares that the constructor shouldn't be documented
+     *
+     */
+    String hidden() default "";
+
+    /**
+     * recommends that a constructor shouldn't be used
      * @return why the constructor shouldn't be used and any reference
      */
     String deprecated() default "";

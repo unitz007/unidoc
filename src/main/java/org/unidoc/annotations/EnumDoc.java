@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PACKAGE)
-public @interface PackageDoc {
+@Target(ElementType.TYPE)
+public @interface EnumDoc {
 
     /**
      *
@@ -35,9 +35,15 @@ public @interface PackageDoc {
 
     /**
      *
-     * @return when package was created
+     * @return when enum was created
      */
     String since() default "";
+
+    /**
+     * declares that the enum shouldn't be documented
+     *
+     */
+    String hidden() default "";
 
     /**
      *
@@ -45,4 +51,9 @@ public @interface PackageDoc {
      */
     String[] serialField() default "";
 
+    /**
+     * recommends that an enum shouldn't be used
+     * @return why the enum shouldn't be used and any reference
+     */
+    String deprecated() default ""; // @deprecated
 }

@@ -75,6 +75,14 @@ public class FieldDocumentation {
 
     /**
      *
+     * sets javadoc @hidden tag
+     */
+    private void hiddenTag() {
+        javadocBlocktagSetter.setHiddenTag(javadoc, pairs);
+    }
+
+    /**
+     *
      * sets javadoc @deprecated tag
      */
     public void deprecatedTag() {
@@ -91,6 +99,7 @@ public class FieldDocumentation {
         sinceTag();
         serialTag();
         serialFieldTag();
+        hiddenTag();
         deprecatedTag();
         return javadoc;
     }

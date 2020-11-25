@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PACKAGE)
-public @interface PackageDoc {
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface AnnotationDoc {
 
     /**
      *
@@ -35,9 +35,15 @@ public @interface PackageDoc {
 
     /**
      *
-     * @return when package was created
+     * @return when annotation was created
      */
     String since() default "";
+
+    /**
+     * declares that the annotation shouldn't be documented
+     *
+     */
+    String hidden() default "";
 
     /**
      *
@@ -45,4 +51,9 @@ public @interface PackageDoc {
      */
     String[] serialField() default "";
 
+    /**
+     * recommends that an annotation shouldn't be used
+     * @return why the annotation shouldn't be used and any reference
+     */
+    String deprecated() default ""; // @deprecated
 }

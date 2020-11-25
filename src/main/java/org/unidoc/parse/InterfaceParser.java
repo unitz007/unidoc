@@ -19,10 +19,10 @@ public class InterfaceParser extends VoidVisitorAdapter<Void> {
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * converts unidoc interface annotations to java doc comments.
+     * converts unidoc interface annotations to javadoc comments.
      * Also removes @InterfaceDoc annotations from source code
      *
-     * @param id interface(s) to be accessed
+     * @param id interface to be assessed
      * @param arg void
      */
     @Override

@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PACKAGE)
-public @interface PackageDoc {
+@Target(ElementType.MODULE)
+public @interface ModuleDoc {
 
     /**
      *
@@ -17,7 +17,7 @@ public @interface PackageDoc {
 
     /**
      *
-     * @return author name(s)
+     * @return author(s)
      */
     String[] author() default "";
 
@@ -35,14 +35,31 @@ public @interface PackageDoc {
 
     /**
      *
-     * @return when package was created
+     * @return when module was created
      */
     String since() default "";
 
     /**
      *
-     * @return field name, type and description
+     * @return field name, type and description of an ObjectStreamField
      */
     String[] serialField() default "";
 
+    /**
+     *
+     * @return service type and description of service provided
+     */
+    String[] provides() default "";
+
+    /**
+     *
+     * @return service type and description of service
+     */
+    String[] uses() default "";
+
+    /**
+     * recommends that a module shouldn't be used
+     * @return why the module shouldn't be used and any reference
+     */
+    String deprecated() default "";
 }

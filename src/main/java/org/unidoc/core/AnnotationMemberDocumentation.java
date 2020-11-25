@@ -1,48 +1,49 @@
 package org.unidoc.core;
 
 import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.AnnotationMemberDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.MemberValuePair;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
-import org.unidoc.annotations.MethodDoc;
+import org.unidoc.annotations.AnnotationMemberDoc;
+import org.unidoc.annotations.ConstructorDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
-import org.unidoc.utils.Utilities;
 
 /**
- * has methods for transforming @MethodDoc annotations to java doc comments
+ * has methods for transforming @AnnotationMemberDoc annotations to java doc comments
  */
-public class MethodDocumentation {
+public class AnnotationMemberDocumentation {
 
+    private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
     private Javadoc javadoc;
     private NodeList<MemberValuePair> pairs;
-    private final MethodDeclaration md;
-    private AnnotationExpr annotationExpr;
-    private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+    private AnnotationMemberDeclaration aed;
 
     /**
      * assigns value to pairs and annotationExpr
-     * @param md method declaration
+     * @param aed annotationMember declaration
      */
-    public MethodDocumentation(MethodDeclaration md) {
-        this.md = md;
-        // checks if method has @MethodDoc annotation
-        md.getAnnotationByClass(MethodDoc.class).ifPresent(annotation -> {
-                if (annotation.isNormalAnnotationExpr()) {
-                    this.pairs = annotation.asNormalAnnotationExpr().getPairs();
-                    this.annotationExpr = annotation;
-                }
+    public AnnotationMemberDocumentation(AnnotationMemberDeclaration aed) {
+
+        this.aed = aed;
+
+        aed.getAnnotationByClass(AnnotationMemberDoc.class).ifPresent(annotation -> {
+            if (annotation.isNormalAnnotationExpr()) {
+                this.pairs = annotation.asNormalAnnotationExpr().getPairs();
+            }
         });
     }
 
     /**
-     * sets description of method
-     * @return an instance of JavadocDescription
+     * sets description of annotationMember
+     * @return javadoc description
      */
     protected JavadocDescription description() {
-        return javadocBlocktagSetter.setMethodDescription(md, annotationExpr, pairs);
+        return javadocBlocktagSetter.setDescription(pairs);
     }
+
     /**
      *
      * sets javadoc @version tag
@@ -52,24 +53,10 @@ public class MethodDocumentation {
     }
 
     /**
-     * sets javadoc @param tag.
-     */
-    private void paramTag() {
-        javadocBlocktagSetter.setMethodParamTag(md, annotationExpr, javadoc);
-    }
-
-    /**
      * sets @return tag
      */
     private void returnTag() {
-        javadocBlocktagSetter.setMethodReturnTag(md, javadoc, pairs);
-    }
-
-    /**
-     * sets javadoc @throws tag.
-     */
-    private void throwTag() {
-        javadocBlocktagSetter.setMethodThrowTag(md, javadoc, pairs);
+        javadocBlocktagSetter.setAnnotationMemberReturnTag(aed, javadoc, pairs);
     }
 
     /**
@@ -84,13 +71,6 @@ public class MethodDocumentation {
      */
     private void sinceTag() {
         javadocBlocktagSetter.setSinceTag(javadoc, pairs);
-    }
-
-    /**
-     * sets @serialData tag
-     */
-    private void serialDataTag() {
-        javadocBlocktagSetter.setSerialDataTag(javadoc, pairs);
     }
 
     /**
@@ -114,15 +94,14 @@ public class MethodDocumentation {
      */
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(description()); // instantiates javadoc.
-        paramTag(); // add @param tag
         versionTag();
         returnTag(); // add @return tag
-        throwTag(); // add @throws tag
         seeTag();
         sinceTag();
-        serialDataTag();
         hiddenTag();
         deprecatedTag();
         return javadoc;
     }
+
+
 }

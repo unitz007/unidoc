@@ -40,7 +40,13 @@ public @interface FieldDoc {
     String[] serialField() default "";
 
     /**
-     * recommends that a class shouldn't be used
+     * declares that the field shouldn't be documented
+     *
+     */
+    String hidden() default "";
+
+    /**
+     * recommends that a field shouldn't be used
      * @return why the field shouldn't be used and any reference
      */
     String deprecated() default "";

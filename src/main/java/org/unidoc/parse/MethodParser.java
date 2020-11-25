@@ -13,10 +13,10 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
     private final Log log = LogFactory.getLog(this.getClass()); // logger
 
     /**
-     * Converts unidoc method annotations to java doc comments.
+     * Converts unidoc method annotations to javadoc comments.
      * Also removes @MethodDoc annotations from source code
      *
-     * @param md Method(s) to be accessed
+     * @param md Method to be assessed
      * @param arg void
      */
     public void visit(MethodDeclaration md, Void arg) {

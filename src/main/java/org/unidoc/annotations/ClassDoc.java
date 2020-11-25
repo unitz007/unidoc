@@ -42,9 +42,15 @@ public @interface ClassDoc {
 
     /**
      *
-     * @return whether the class should be included in the serialized form page
+     * @return field name, field type, field-description
      */
-    String serial() default "";
+    String serialField() default "";
+
+    /**
+     * declares that the class shouldn't be documented
+     *
+     */
+    String hidden() default "";
 
     /**
      * recommends that a class shouldn't be used
