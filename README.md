@@ -8,10 +8,15 @@ This is an alternative to the standard format of documenting java source codes. 
 
 The annotations include:
 
+    > @ModuleDoc
     > @PackageDoc
     > @ClassDoc
     > @InterfaceDoc
+    > @EnumDoc
+    > @AnnotationDoc
+    > @AnnotationMemberDoc
     > @ConstructorDoc
+    > @ParamDoc
     > @FieldDoc
     > @MethodDoc
      
