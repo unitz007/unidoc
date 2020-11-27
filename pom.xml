@@ -32,6 +32,12 @@
             <version>1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -42,6 +48,13 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>info.picocli</groupId>
+                            <artifactId>picocli-codegen</artifactId>
+                            <version>4.5.2</version>
+                        </path>
+                    </annotationProcessorPaths>
                     <source>9</source>
                     <target>9</target>
                 </configuration>

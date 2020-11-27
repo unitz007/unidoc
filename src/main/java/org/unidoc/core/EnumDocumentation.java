@@ -21,16 +21,20 @@ public class EnumDocumentation {
     private Javadoc javadoc;
     private NodeList<MemberValuePair> pairs;
     JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+    private EnumDeclaration ed;
+    private AnnotationExpr annotationExpr;
 
     /**
      * assigns value to pairs
      * @param ed enum declaration
      */
     public EnumDocumentation(EnumDeclaration ed) {
+        this.ed = ed;
         Optional<AnnotationExpr> expr = ed.getAnnotationByClass(EnumDoc.class);
         if (expr.isPresent()) {
             expr.ifPresent(annotation -> {
                 pairs = annotation.asNormalAnnotationExpr().getPairs();
+                this.annotationExpr = annotation;
             });
         }
     }

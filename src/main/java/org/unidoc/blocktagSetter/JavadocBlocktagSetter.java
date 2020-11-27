@@ -1,14 +1,12 @@
 package org.unidoc.blocktagSetter;
 
 import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.body.AnnotationMemberDeclaration;
-import com.github.javaparser.ast.body.ConstructorDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.Parameter;
+import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.MemberValuePair;
 import com.github.javaparser.ast.type.ReferenceType;
+import com.github.javaparser.ast.type.TypeParameter;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.annotations.ParamDoc;
@@ -86,6 +84,62 @@ public class JavadocBlocktagSetter {
                 .forEach(memberValuePair -> {
                     String value = memberValuePair.getValue().toString();
                     javadoc.addBlockTag(versionTag, Utilities.replace(value)); });
+    }
+
+    /**
+     * defines javadoc @param tag for class.
+     */
+    public void setClassParamTag(ClassOrInterfaceDeclaration cd, AnnotationExpr annotationExpr, Javadoc javadoc) {
+
+        NodeList<TypeParameter> typeParameters = cd.getTypeParameters(); // gets constructor's parameter(s)
+        String annotation = Utilities.lowerCaseBlockTag("PARAM");
+
+        if (annotationExpr.isAnnotationExpr()) {
+            for (TypeParameter parameter: typeParameters) {
+                parameter.getAnnotationByClass(ParamDoc.class)
+                        .ifPresent(ParamAnnotationExpr -> {
+                            NodeList<MemberValuePair> paramPairs = ParamAnnotationExpr.asNormalAnnotationExpr().getPairs(); //get MemberValuePairs (description = ...)
+                            paramPairs.stream()
+                                    .filter(paramPair -> paramPair.getNameAsString().equals("description"))
+                                    .forEach(memberValuePair -> {
+                                        String value = memberValuePair.getValue().toString();
+                                        String otherValue = Utilities.replace(value);
+                                        String otherValue1 = otherValue.replace(" + ", "\n");
+                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), otherValue1);
+                                    });
+
+                            ParamAnnotationExpr.remove();
+                        });
+            }
+        }
+    }
+
+    /**
+     * defines javadoc @param tag for interface.
+     */
+    public void setInterfaceParamTag(ClassOrInterfaceDeclaration id, AnnotationExpr annotationExpr, Javadoc javadoc) {
+
+        NodeList<TypeParameter> typeParameters = id.getTypeParameters(); // gets constructor's parameter(s)
+        String annotation = Utilities.lowerCaseBlockTag("PARAM");
+
+        if (annotationExpr.isAnnotationExpr()) {
+            for (TypeParameter parameter: typeParameters) {
+                parameter.getAnnotationByClass(ParamDoc.class)
+                        .ifPresent(ParamAnnotationExpr -> {
+                            NodeList<MemberValuePair> paramPairs = ParamAnnotationExpr.asNormalAnnotationExpr().getPairs(); //get MemberValuePairs (description = ...)
+                            paramPairs.stream()
+                                    .filter(paramPair -> paramPair.getNameAsString().equals("description"))
+                                    .forEach(memberValuePair -> {
+                                        String value = memberValuePair.getValue().toString();
+                                        String otherValue = Utilities.replace(value);
+                                        String otherValue1 = otherValue.replace(" + ", "\n");
+                                        javadoc.addBlockTag(annotation, parameter.getNameAsString(), otherValue1);
+                                    });
+
+                            ParamAnnotationExpr.remove();
+                        });
+            }
+        }
     }
 
     /**

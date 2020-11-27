@@ -19,15 +19,19 @@ public class ClassDocumentation {
     private NodeList<MemberValuePair> pairs;
     private Javadoc javadoc;
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+    private ClassOrInterfaceDeclaration cd;
+    private AnnotationExpr annotationExpr;
 
     /**
      * assigns value to pairs
      * @param cd class declaration
      */
     public ClassDocumentation(ClassOrInterfaceDeclaration cd) {
+        this.cd = cd;
         Optional<AnnotationExpr> annotationByClass = cd.getAnnotationByClass(ClassDoc.class);
         annotationByClass.ifPresent(annotationExpr -> {
             this.pairs = annotationExpr.asNormalAnnotationExpr().getPairs();
+            this.annotationExpr = annotationExpr;
         });
     }
 
@@ -54,6 +58,13 @@ public class ClassDocumentation {
      */
     public void versionTag() {
         javadocBlocktagSetter.setVersionTag(javadoc, pairs);
+    }
+
+    /**
+     * sets javadoc @param tag.
+     */
+    private void paramTag() {
+        javadocBlocktagSetter.setClassParamTag(cd, annotationExpr, javadoc);
     }
 
     /**
@@ -104,6 +115,7 @@ public class ClassDocumentation {
         javadoc = new Javadoc(description());
         authorTag();
         versionTag();
+        paramTag();
         seeTag();
         sinceTag();
         serialFieldTag();

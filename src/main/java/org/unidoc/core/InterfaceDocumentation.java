@@ -19,15 +19,19 @@ public class InterfaceDocumentation {
     private NodeList<MemberValuePair> pairs;
     private Javadoc javadoc;
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+    private ClassOrInterfaceDeclaration id;
+    private AnnotationExpr annotationExpr;
 
     /**
      * assigns value to pairs
      * @param id interface declaration
      */
     public InterfaceDocumentation(ClassOrInterfaceDeclaration id) {
+        this.id = id;
         Optional<AnnotationExpr> annotationByClass = id.getAnnotationByClass(InterfaceDoc.class);
         annotationByClass.ifPresent(annotationExpr -> {
             this.pairs = annotationExpr.asNormalAnnotationExpr().getPairs();
+            this.annotationExpr = annotationExpr;
         });
     }
 
@@ -54,6 +58,13 @@ public class InterfaceDocumentation {
      */
     public void versionTag() {
         javadocBlocktagSetter.setVersionTag(javadoc, pairs);
+    }
+
+    /**
+     * sets javadoc @param tag.
+     */
+    private void paramTag() {
+        javadocBlocktagSetter.setInterfaceParamTag(id, annotationExpr, javadoc);
     }
 
     /**
@@ -104,6 +115,7 @@ public class InterfaceDocumentation {
         javadoc = new Javadoc(description());
         authorTag();
         versionTag();
+        paramTag();
         seeTag();
         sinceTag();
         serialFieldTag();

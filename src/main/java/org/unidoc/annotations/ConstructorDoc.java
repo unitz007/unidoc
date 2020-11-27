@@ -17,9 +17,9 @@ public @interface ConstructorDoc {
 
     /**
      *
-     * @return name(s) of parameter(s), type and description
+     * @return version
      */
-    String[] params() default "";
+    String version() default "";
 
     /**
      *

@@ -1,5 +1,7 @@
 package org.unidoc.annotations;
 
+import com.github.javaparser.ast.body.EnumDeclaration;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

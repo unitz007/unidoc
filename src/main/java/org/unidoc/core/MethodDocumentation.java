@@ -114,8 +114,8 @@ public class MethodDocumentation {
      */
     public Javadoc getJavadoc() {
         javadoc = new Javadoc(description()); // instantiates javadoc.
-        paramTag(); // add @param tag
         versionTag();
+        paramTag(); // add @param tag
         returnTag(); // add @return tag
         throwTag(); // add @throws tag
         seeTag();

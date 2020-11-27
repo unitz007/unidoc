@@ -43,7 +43,7 @@ public @interface InterfaceDoc {
      *
      * @return whether the interface should be included in the serialized form page
      */
-    String serial() default "";
+    String serialField() default "";
 
     /**
      * declares that the interface shouldn't be documented

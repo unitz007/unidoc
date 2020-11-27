@@ -1,5 +1,7 @@
 package org.unidocTest.api;
 
+import org.unidoc.annotations.*;
+
 /**
  * ...
  *
@@ -9,21 +11,21 @@ public class TestClass<T> {
 
     /**
      * ...
+     *
+     * @param s ...
      */
-    TestClass() {
+    TestClass(String s) {
     }
 
     /**
      * ...
      */
-    String s;
+    String ss;
 
     /**
      * ....
-     *
-     * @param s this arg ...
      */
-    private void setS(String s) {
-        this.s = s;
+    public void setSs(String ss) {
+        this.ss = ss;
     }
 }

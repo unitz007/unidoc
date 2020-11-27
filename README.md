@@ -4,7 +4,7 @@ Generates javadoc using annotations.
 
 ## Description
 
-This is an alternative to the standard format of documenting java source codes. Unidoc introduces the use of element-type specific annotations in code commenting. 
+This is an alternative format of documenting java source codes. Unidoc introduces the use of element-type specific annotations in code commenting. 
 
 The annotations include:
 
