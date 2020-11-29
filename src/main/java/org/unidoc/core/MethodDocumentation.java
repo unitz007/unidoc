@@ -8,17 +8,20 @@ import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.annotations.MethodDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
-import org.unidoc.utils.Utilities;
 
 /**
- * has methods for transforming @MethodDoc annotations to java doc comments
+ * calls and passes required parameters to methods that transform @MethodDoc annotations to java doc comments
  */
 public class MethodDocumentation {
 
     private Javadoc javadoc;
+
     private NodeList<MemberValuePair> pairs;
+
     private final MethodDeclaration md;
+
     private AnnotationExpr annotationExpr;
+
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
 
     /**
@@ -29,10 +32,10 @@ public class MethodDocumentation {
         this.md = md;
         // checks if method has @MethodDoc annotation
         md.getAnnotationByClass(MethodDoc.class).ifPresent(annotation -> {
-                if (annotation.isNormalAnnotationExpr()) {
-                    this.pairs = annotation.asNormalAnnotationExpr().getPairs();
-                    this.annotationExpr = annotation;
-                }
+            if (annotation.isNormalAnnotationExpr()) {
+                this.pairs = annotation.asNormalAnnotationExpr().getPairs();
+                this.annotationExpr = annotation;
+            }
         });
     }
 
@@ -43,8 +46,8 @@ public class MethodDocumentation {
     protected JavadocDescription description() {
         return javadocBlocktagSetter.setMethodDescription(md, annotationExpr, pairs);
     }
+
     /**
-     *
      * sets javadoc @version tag
      */
     public void versionTag() {
@@ -94,7 +97,6 @@ public class MethodDocumentation {
     }
 
     /**
-     *
      * sets javadoc @hidden tag
      */
     private void hiddenTag() {
@@ -113,11 +115,15 @@ public class MethodDocumentation {
      * @return javadoc
      */
     public Javadoc getJavadoc() {
-        javadoc = new Javadoc(description()); // instantiates javadoc.
+        // instantiates javadoc.
+        javadoc = new Javadoc(description());
         versionTag();
-        paramTag(); // add @param tag
-        returnTag(); // add @return tag
-        throwTag(); // add @throws tag
+        // add @param tag
+        paramTag();
+        // add @return tag
+        returnTag();
+        // add @throws tag
+        throwTag();
         seeTag();
         sinceTag();
         serialDataTag();

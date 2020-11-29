@@ -8,12 +8,16 @@ import org.apache.commons.logging.LogFactory;
 import org.unidoc.annotations.AnnotationMemberDoc;
 import org.unidoc.core.AnnotationMemberDocumentation;
 
+/**
+ *
+ * has method for setting java doc comments and removing @AnnotationMemberDoc
+ */
 public class AnnotationMemberParser extends VoidVisitorAdapter<Void> {
 
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Converts unidoc @AnnotationMemberDoc to javadoc comments.
+     * sets java doc comments generated from unidoc @AnnotationMemberDoc annotation.
      * Also removes @AnnotationMemberDoc annotations from source code
      *
      * @param aed annotationMember to be assessed
@@ -22,8 +26,7 @@ public class AnnotationMemberParser extends VoidVisitorAdapter<Void> {
     @Override
     public void visit(AnnotationMemberDeclaration aed, Void arg) {
         super.visit(aed, arg);
-
-        if(aed.isAnnotationPresent(AnnotationMemberDoc.class)) {
+        if (aed.isAnnotationPresent(AnnotationMemberDoc.class)) {
             AnnotationMemberDocumentation annotationMemberDocumentation = new AnnotationMemberDocumentation(aed);
             aed.setJavadocComment(annotationMemberDocumentation.getJavadoc());
             aed.getAnnotationByClass(AnnotationMemberDoc.class).ifPresent(Node::remove);

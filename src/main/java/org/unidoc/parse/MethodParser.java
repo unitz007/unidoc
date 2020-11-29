@@ -8,12 +8,17 @@ import org.apache.commons.logging.LogFactory;
 import org.unidoc.annotations.MethodDoc;
 import org.unidoc.core.MethodDocumentation;
 
+/**
+ *
+ * has method for setting java doc comments and removing @MethodDoc
+ */
 public class MethodParser extends VoidVisitorAdapter<Void> {
 
-    private final Log log = LogFactory.getLog(this.getClass()); // logger
+    // logger
+    private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Converts unidoc method annotations to javadoc comments.
+     * sets java doc comments generated from unidoc @MethodDoc annotation.
      * Also removes @MethodDoc annotations from source code
      *
      * @param md Method to be assessed
@@ -21,7 +26,8 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
      */
     public void visit(MethodDeclaration md, Void arg) {
         super.visit(md, arg);
-        if (md.isAnnotationPresent(MethodDoc.class)) { // check if method has @MethodDoc annotation
+        if (md.isAnnotationPresent(MethodDoc.class)) {
+            // check if method has @MethodDoc annotation
             MethodDocumentation methodDocumentation = new MethodDocumentation(md);
             md.setJavadocComment(methodDocumentation.getJavadoc());
             md.getAnnotationByClass(MethodDoc.class).ifPresent(Node::remove);

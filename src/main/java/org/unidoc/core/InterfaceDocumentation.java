@@ -10,16 +10,19 @@ import org.unidoc.annotations.InterfaceDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
 import java.util.Optional;
 
-
 /**
- * has methods for transforming @InterfaceDoc annotations to java doc comments
+ * calls and passes required parameters to methods that transform @InterfaceDoc annotations to java doc comments
  */
 public class InterfaceDocumentation {
 
     private NodeList<MemberValuePair> pairs;
+
     private Javadoc javadoc;
+
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+
     private ClassOrInterfaceDeclaration id;
+
     private AnnotationExpr annotationExpr;
 
     /**
@@ -43,9 +46,7 @@ public class InterfaceDocumentation {
         return javadocBlocktagSetter.setDescription(pairs);
     }
 
-
     /**
-     *
      * sets javadoc @author tag
      */
     public void authorTag() {
@@ -53,7 +54,6 @@ public class InterfaceDocumentation {
     }
 
     /**
-     *
      * sets javadoc @version tag
      */
     public void versionTag() {
@@ -68,7 +68,6 @@ public class InterfaceDocumentation {
     }
 
     /**
-     *
      * sets javadoc @see tag
      */
     public void seeTag() {
@@ -76,7 +75,6 @@ public class InterfaceDocumentation {
     }
 
     /**
-     *
      * sets javadoc @since tag
      */
     public void sinceTag() {
@@ -84,7 +82,6 @@ public class InterfaceDocumentation {
     }
 
     /**
-     *
      * sets javadoc @serial tag
      */
     private void serialFieldTag() {
@@ -92,7 +89,6 @@ public class InterfaceDocumentation {
     }
 
     /**
-     *
      * sets javadoc @hidden tag
      */
     private void hiddenTag() {
@@ -100,7 +96,6 @@ public class InterfaceDocumentation {
     }
 
     /**
-     *
      * sets javadoc @deprecated tag
      */
     private void deprecatedTag() {

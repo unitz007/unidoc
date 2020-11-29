@@ -5,54 +5,50 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ *
+ * for documenting a module declaration
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.MODULE)
 public @interface ModuleDoc {
 
     /**
-     *
      * @return description
      */
     String description() default "";
 
     /**
-     *
      * @return author(s)
      */
     String[] author() default "";
 
     /**
-     *
      * @return version
      */
     String version() default "";
 
     /**
-     *
      * @return associated links and references
      */
     String see() default "";
 
     /**
-     *
      * @return when module was created
      */
     String since() default "";
 
     /**
-     *
      * @return field name, type and description of an ObjectStreamField
      */
     String[] serialField() default "";
 
     /**
-     *
      * @return service type and description of service provided
      */
     String[] provides() default "";
 
     /**
-     *
      * @return service type and description of service
      */
     String[] uses() default "";

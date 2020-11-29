@@ -9,16 +9,17 @@ import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.annotations.PackageDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
-
 import java.util.Optional;
 
 /**
- * has methods for transforming @PackageDoc annotations to java doc comments
+ * calls and passes required parameters to methods that transform @PackageDoc annotations to java doc comments
  */
 public class PackageDocumentation {
 
     private NodeList<MemberValuePair> pairs;
+
     private Javadoc javadoc;
+
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
 
     /**
@@ -41,7 +42,6 @@ public class PackageDocumentation {
     }
 
     /**
-     *
      * sets javadoc @author tag
      */
     public void authorTag() {
@@ -49,7 +49,6 @@ public class PackageDocumentation {
     }
 
     /**
-     *
      * sets javadoc @version tag
      */
     public void versionTag() {
@@ -57,7 +56,6 @@ public class PackageDocumentation {
     }
 
     /**
-     *
      * sets javadoc @see tag
      */
     public void seeTag() {
@@ -65,7 +63,6 @@ public class PackageDocumentation {
     }
 
     /**
-     *
      * sets javadoc @since tag
      */
     public void sinceTag() {
@@ -73,7 +70,6 @@ public class PackageDocumentation {
     }
 
     /**
-     *
      * sets javadoc @serialField tag
      */
     private void serialFieldTag() {

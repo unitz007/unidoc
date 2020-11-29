@@ -8,16 +8,17 @@ import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.annotations.FieldDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
-
 import java.util.Optional;
 
 /**
- * has methods for transforming @FieldDoc annotations to java doc comments
+ * calls and passes required parameters to methods that transform @FieldDoc annotations to java doc comments
  */
 public class FieldDocumentation {
 
     private Javadoc javadoc;
+
     private NodeList<MemberValuePair> pairs;
+
     JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
 
     /**
@@ -27,8 +28,8 @@ public class FieldDocumentation {
     public FieldDocumentation(FieldDeclaration fd) {
         Optional<AnnotationExpr> expr = fd.getAnnotationByClass(FieldDoc.class);
         if (expr.isPresent()) {
-           expr.ifPresent(annotation -> {
-                    pairs = annotation.asNormalAnnotationExpr().getPairs();
+            expr.ifPresent(annotation -> {
+                pairs = annotation.asNormalAnnotationExpr().getPairs();
             });
         }
     }
@@ -42,7 +43,6 @@ public class FieldDocumentation {
     }
 
     /**
-     *
      * sets javadoc @see tag
      */
     private void seeTag() {
@@ -50,7 +50,6 @@ public class FieldDocumentation {
     }
 
     /**
-     *
      * sets javadoc @since tag
      */
     private void sinceTag() {
@@ -58,7 +57,6 @@ public class FieldDocumentation {
     }
 
     /**
-     *
      * sets javadoc @serial tag
      */
     private void serialTag() {
@@ -66,7 +64,6 @@ public class FieldDocumentation {
     }
 
     /**
-     *
      * sets javadoc @serialField tag
      */
     private void serialFieldTag() {
@@ -74,7 +71,6 @@ public class FieldDocumentation {
     }
 
     /**
-     *
      * sets javadoc @hidden tag
      */
     private void hiddenTag() {
@@ -82,7 +78,6 @@ public class FieldDocumentation {
     }
 
     /**
-     *
      * sets javadoc @deprecated tag
      */
     public void deprecatedTag() {
@@ -103,5 +98,4 @@ public class FieldDocumentation {
         deprecatedTag();
         return javadoc;
     }
-
 }

@@ -8,18 +8,21 @@ import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.annotations.ClassDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
-
 import java.util.Optional;
 
 /**
- * has methods for transforming @ClassDoc annotations to java doc comments
+ * calls and passes required parameters to methods that transform @ClassDoc annotations to java doc comments
  */
 public class ClassDocumentation {
 
     private NodeList<MemberValuePair> pairs;
+
     private Javadoc javadoc;
+
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+
     private ClassOrInterfaceDeclaration cd;
+
     private AnnotationExpr annotationExpr;
 
     /**
@@ -43,9 +46,7 @@ public class ClassDocumentation {
         return javadocBlocktagSetter.setDescription(pairs);
     }
 
-
     /**
-     *
      * sets javadoc @author tag
      */
     public void authorTag() {
@@ -53,7 +54,6 @@ public class ClassDocumentation {
     }
 
     /**
-     *
      * sets javadoc @version tag
      */
     public void versionTag() {
@@ -68,7 +68,6 @@ public class ClassDocumentation {
     }
 
     /**
-     *
      * sets javadoc @see tag
      */
     public void seeTag() {
@@ -76,7 +75,6 @@ public class ClassDocumentation {
     }
 
     /**
-     *
      * sets javadoc @since tag
      */
     public void sinceTag() {
@@ -84,7 +82,6 @@ public class ClassDocumentation {
     }
 
     /**
-     *
      * sets javadoc @serial tag
      */
     private void serialFieldTag() {
@@ -92,7 +89,6 @@ public class ClassDocumentation {
     }
 
     /**
-     *
      * sets javadoc @hidden tag
      */
     private void hiddenTag() {
@@ -100,7 +96,6 @@ public class ClassDocumentation {
     }
 
     /**
-     *
      * sets javadoc @deprecated tag
      */
     private void deprecatedTag() {

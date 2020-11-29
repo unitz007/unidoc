@@ -10,14 +10,18 @@ import org.unidoc.annotations.ConstructorDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
 
 /**
- * has methods for transforming @ConstructorDoc annotations to java doc comments
+ * calls and passes required parameters to methods that transform @ConstructorDoc annotations to java doc comments
  */
 public class ConstructorDocumentation {
 
     private JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+
     private Javadoc javadoc;
+
     private NodeList<MemberValuePair> pairs;
+
     private final ConstructorDeclaration cd;
+
     private AnnotationExpr annotationExpr;
 
     /**
@@ -32,7 +36,6 @@ public class ConstructorDocumentation {
                 this.pairs = annotation.asNormalAnnotationExpr().getPairs();
                 this.annotationExpr = annotation;
             }
-
         });
     }
 
@@ -45,7 +48,6 @@ public class ConstructorDocumentation {
     }
 
     /**
-     *
      * sets javadoc @version tag
      */
     public void versionTag() {
@@ -81,7 +83,6 @@ public class ConstructorDocumentation {
     }
 
     /**
-     *
      * sets javadoc @hidden tag
      */
     private void hiddenTag() {

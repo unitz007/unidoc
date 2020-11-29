@@ -9,16 +9,17 @@ import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.annotations.ModuleDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
-
 import java.util.Optional;
 
 /**
- * has methods for transforming @ModuleDoc annotations to java doc comments
+ * calls and passes required parameters to methods that transform @ModuleDoc annotations to java doc comments
  */
 public class ModuleDocumentation {
 
     private Javadoc javadoc;
+
     private NodeList<MemberValuePair> pairs;
+
     JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
 
     /**
@@ -43,7 +44,6 @@ public class ModuleDocumentation {
     }
 
     /**
-     *
      * sets javadoc @author tag
      */
     public void authorTag() {
@@ -51,7 +51,6 @@ public class ModuleDocumentation {
     }
 
     /**
-     *
      * sets javadoc @version tag
      */
     public void versionTag() {
@@ -59,7 +58,6 @@ public class ModuleDocumentation {
     }
 
     /**
-     *
      * sets javadoc @see tag
      */
     private void seeTag() {
@@ -67,7 +65,6 @@ public class ModuleDocumentation {
     }
 
     /**
-     *
      * sets javadoc @since tag
      */
     private void sinceTag() {
@@ -75,7 +72,6 @@ public class ModuleDocumentation {
     }
 
     /**
-     *
      * sets javadoc @serialField tag
      */
     private void serialFieldTag() {
@@ -83,7 +79,6 @@ public class ModuleDocumentation {
     }
 
     /**
-     *
      * sets javadoc @provides tag
      */
     public void providesTag() {
@@ -91,7 +86,6 @@ public class ModuleDocumentation {
     }
 
     /**
-     *
      * sets javadoc @uses tag
      */
     public void usesTag() {
@@ -99,7 +93,6 @@ public class ModuleDocumentation {
     }
 
     /**
-     *
      * sets javadoc @deprecated tag
      */
     public void deprecatedTag() {
@@ -122,5 +115,4 @@ public class ModuleDocumentation {
         deprecatedTag();
         return javadoc.toComment().asJavadocComment();
     }
-
 }

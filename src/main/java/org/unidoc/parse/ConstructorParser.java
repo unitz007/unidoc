@@ -8,12 +8,17 @@ import org.apache.commons.logging.LogFactory;
 import org.unidoc.annotations.ConstructorDoc;
 import org.unidoc.core.ConstructorDocumentation;
 
+/**
+ *
+ * has method for setting java doc comments and removing @ConstructorDoc
+ */
 public class ConstructorParser extends VoidVisitorAdapter<Void> {
 
-    private final Log log = LogFactory.getLog(this.getClass()); // logger
+    // logger
+    private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Converts unidoc constructor annotations to javadoc comments.
+     * sets java doc comments generated from unidoc @ConstructorDoc annotation.
      * Also removes @ConstructorDoc annotations from source code
      *
      * @param cd constructor to be accessed

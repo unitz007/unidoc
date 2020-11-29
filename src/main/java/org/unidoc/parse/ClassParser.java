@@ -1,24 +1,26 @@
 package org.unidoc.parse;
 
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.unidoc.annotations.ClassDoc;
-import org.unidoc.annotations.InterfaceDoc;
 import org.unidoc.core.ClassDocumentation;
-import org.unidoc.core.InterfaceDocumentation;
 
 import java.util.Optional;
+
+/**
+ *
+ * has method for setting java doc comments and removing @ClassDoc
+ */
 
 public class ClassParser extends VoidVisitorAdapter<Void> {
 
     private final Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * converts unidoc class annotations to javadoc comments.
+     * sets java doc comments generated from unidoc @ClassDoc annotation.
      * Also removes @ClassDoc annotations from source code
      *
      * @param cd class to be accessed
@@ -33,9 +35,7 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
             cd.setJavadocComment(classDocumentation.getJavadoc());
             expr.get().remove();
         } else {
-            log.info("Class: " + cd.getNameAsString()
-                    + ", is not annotated with @" + ClassDoc.class.getSimpleName());
+            log.info("Class: " + cd.getNameAsString() + ", is not annotated with @" + ClassDoc.class.getSimpleName());
         }
     }
 }
-

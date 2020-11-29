@@ -1,20 +1,18 @@
-package org.unidocTest.api;
-
-import org.unidoc.annotations.*;
+package org.unidoc.test;
 
 /**
  * ...
  *
  * @param T ...
  */
-public class TestClass<T> {
+public class TestC<T> {
 
     /**
      * ...
      *
      * @param s ...
      */
-    TestClass(String s) {
+    TestC(String s) {
     }
 
     /**

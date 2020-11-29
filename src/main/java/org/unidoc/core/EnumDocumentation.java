@@ -4,24 +4,26 @@ import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.EnumDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.MemberValuePair;
-import com.github.javaparser.ast.modules.ModuleDeclaration;
 import com.github.javaparser.javadoc.Javadoc;
 import com.github.javaparser.javadoc.description.JavadocDescription;
 import org.unidoc.annotations.EnumDoc;
-import org.unidoc.annotations.ModuleDoc;
 import org.unidoc.blocktagSetter.JavadocBlocktagSetter;
 
 import java.util.Optional;
 
 /**
- * has methods for transforming @EnumDoc annotations to java doc comments
+ * calls and passes required parameters to methods that transform @EnumDoc annotations to java doc comments
  */
 public class EnumDocumentation {
 
     private Javadoc javadoc;
+
     private NodeList<MemberValuePair> pairs;
+
     JavadocBlocktagSetter javadocBlocktagSetter = new JavadocBlocktagSetter();
+
     private EnumDeclaration ed;
+
     private AnnotationExpr annotationExpr;
 
     /**
@@ -48,7 +50,6 @@ public class EnumDocumentation {
     }
 
     /**
-     *
      * sets javadoc @author tag
      */
     public void authorTag() {
@@ -56,7 +57,6 @@ public class EnumDocumentation {
     }
 
     /**
-     *
      * sets javadoc @version tag
      */
     public void versionTag() {
@@ -64,7 +64,6 @@ public class EnumDocumentation {
     }
 
     /**
-     *
      * sets javadoc @see tag
      */
     private void seeTag() {
@@ -72,7 +71,6 @@ public class EnumDocumentation {
     }
 
     /**
-     *
      * sets javadoc @since tag
      */
     private void sinceTag() {
@@ -80,7 +78,6 @@ public class EnumDocumentation {
     }
 
     /**
-     *
      * sets javadoc @serialField tag
      */
     private void serialFieldTag() {
@@ -88,7 +85,6 @@ public class EnumDocumentation {
     }
 
     /**
-     *
      * sets javadoc @hidden tag
      */
     private void hiddenTag() {
@@ -96,7 +92,6 @@ public class EnumDocumentation {
     }
 
     /**
-     *
      * sets javadoc @deprecated tag
      */
     public void deprecatedTag() {
