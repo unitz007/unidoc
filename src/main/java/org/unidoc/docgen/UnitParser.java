@@ -7,17 +7,15 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import org.unidoc.parse.*;
 
 import javax.tools.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
  *
- * has methods for parsing packages and classes
+ * has methods for parsing packages and classes(cli args)
  */
 public class UnitParser {
 
@@ -25,15 +23,15 @@ public class UnitParser {
 
     /**
      *
-     * parses compilation units in packages
+     * parses compilation units in package cli arg
      *
-     * @param opts
-     * @param compilationUnit
-     * @param privateRequested
-     * @param publicRequested
-     * @param packageRequested
+     * @param opts options list with -d and its' value, plus -sourcepath without its' value
+     * @param compilationUnit a class in the package
+     * @param privateRequested was -private used
+     * @param publicRequested was -public used
+     * @param packageRequested was -package used
      */
-    public void packageUnitParser(List<String> opts, CompilationUnit compilationUnit, boolean privateRequested, boolean publicRequested, boolean packageRequested) {
+    public void packageGenParser(List<String> opts, CompilationUnit compilationUnit, boolean privateRequested, boolean publicRequested, boolean packageRequested) {
 
         List<String> options = opts;
 
@@ -92,7 +90,7 @@ public class UnitParser {
                 if (packageRequested) {
                     options.add("-package");
                 } else {
-                    log.info("default visibility used.");
+                    log.info("default access used -> -protected");
                 }
             }
         }
@@ -102,32 +100,38 @@ public class UnitParser {
         File file = new File(compilationUnit.getStorage().get().getPath().toString());
 
         DocumentationTool tool = ToolProvider.getSystemDocumentationTool();
-        DiagnosticListener<JavaFileObject> diagnosticListener = Diagnostic::getCode;
 
 //                            Optional<CompilationUnit.Storage> optionalStorage = compilationUnit.getStorage();
 //                            System.out.println(optionalStorage.get().getPath().toString());
 
-        StandardJavaFileManager fileManager = tool.getStandardFileManager(diagnosticListener, null, null);
+        StandardJavaFileManager fileManager = tool.getStandardFileManager(null, null, null);
         Iterable<? extends JavaFileObject> javadocCompilationUnit = fileManager.getJavaFileObjects(file);
 
-        DocumentationTool.DocumentationTask task = tool.getTask(null, fileManager, diagnosticListener, null, options, javadocCompilationUnit);
+        DocumentationTool.DocumentationTask task = tool.getTask(null, fileManager, null, null, options, javadocCompilationUnit);
         task.call();
 
-        options.remove(3);
-        options.remove(2);
+        if (options.size() == 5) { //when an access option is used
+            options.remove(4);
+            options.remove(3);
+        } else if (options.size() == 3) { //when an access option is used in absence of -sourcepath
+            options.remove(2);
+        } else if (options.size() == 4) { //when no access option is used
+            options.remove(3);
+        }
+
     }
 
     /**
      *
-     * parses classes/compilations units
+     * parses class cli arg
      *
-     * @param opts
-     * @param compilationUnit
-     * @param privateRequested
-     * @param publicRequested
-     * @param packageRequested
+     * @param opts options list with -d and its' value
+     * @param compilationUnit class to document
+     * @param privateRequested was -private used
+     * @param publicRequested was -public used
+     * @param packageRequested was -package used
      */
-    public void classUnitParser(List<String> opts, CompilationUnit compilationUnit, boolean privateRequested, boolean publicRequested, boolean packageRequested) {
+    public void classGenParser(List<String> opts, CompilationUnit compilationUnit, boolean privateRequested, boolean publicRequested, boolean packageRequested) {
 
         List<String> options = opts;
 
@@ -187,7 +191,7 @@ public class UnitParser {
                 if (packageRequested) {
                     options.add("-package");
                 } else {
-                    log.info("default visibility used.");
+                    log.info("default access used -> -protected");
                 }
             }
         }
@@ -197,17 +201,14 @@ public class UnitParser {
         }
 
         File file = new File(compilationUnit.getStorage().get().getPath().toString());
+        Optional<CompilationUnit.Storage> cuStorage = compilationUnit.getStorage();
+        System.out.println(cuStorage.get().getPath().toString());
 
         DocumentationTool tool = ToolProvider.getSystemDocumentationTool();
-        DiagnosticListener<JavaFileObject> diagnosticListener = Diagnostic::getCode;
-//        File f = new File(path);
-//        System.out.println(f.getAbsolutePath());
-//        Optional<CompilationUnit.Storage> optionalStorage = cu.getStorage();
-//        System.out.println(optionalStorage.get().getPath().toString());
 
-        StandardJavaFileManager fileManager = tool.getStandardFileManager(diagnosticListener, null, null);
+        StandardJavaFileManager fileManager = tool.getStandardFileManager(null, null, null);
         Iterable<? extends JavaFileObject> javadocCompilationUnit = fileManager.getJavaFileObjects(file);
-        DocumentationTool.DocumentationTask task = tool.getTask(null, fileManager, diagnosticListener, null, options, javadocCompilationUnit);
+        DocumentationTool.DocumentationTask task = tool.getTask(null, fileManager, null, null, options, javadocCompilationUnit);
         task.call();
     }
 }

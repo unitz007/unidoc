@@ -1,4 +1,4 @@
-package org.unidoc.tester;
+package org.unidoc.java;
 
 /**
  * ...

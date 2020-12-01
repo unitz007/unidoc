@@ -1,7 +1,7 @@
 package org.unidoc.cli;
 
-import org.unidoc.docgen.ClassDocGen;
-import org.unidoc.docgen.PackageDocGen;
+import org.unidoc.docgen.ClassGen;
+import org.unidoc.docgen.PackageGen;
 import picocli.CommandLine;
 
 import java.util.List;
@@ -55,16 +55,21 @@ public class UnidocCli implements Runnable {
      */
     @Override
     public void run() {
-        PackageDocGen packageDocGen = new PackageDocGen();
-        packageDocGen.parsePackageFromCurrentDirectory(destination, sourcePaths, packageAndClassList, privateRequested, publicRequested, packageRequested);
-        packageDocGen.parsePackageFromAnyDirectory(destination, sourcePaths, packageAndClassList, privateRequested, publicRequested, packageRequested);
-        ClassDocGen classDocGen = new ClassDocGen();
-        classDocGen.parseClassFromCurrentDirectory(destination, packageAndClassList, privateRequested, publicRequested, packageRequested);
+
+        PackageGen packageGen = new PackageGen();
+        packageGen.parsePackage(destination, sourcePaths, packageAndClassList, privateRequested, publicRequested, packageRequested);
+
+        packageAndClassList.stream()
+                .filter(list -> list.endsWith(".java"))
+                .forEach(clazz -> {
+                    ClassGen classGen = new ClassGen();
+                    classGen.parseClass(destination, clazz, privateRequested, publicRequested, packageRequested);
+                });
     }
 
     public static void main(String[] args) {
 
         CommandLine cmd = new CommandLine(new UnidocCli());
-        cmd.execute("-d", "/home/david/doc", "--source-path", "/src/test/java", "org.unidocTest.api");
+        cmd.execute("-d", "/home/david/doc", "/src/test/java/org/unidocTest/api/TestClass.java", "/src/test/java/org/unidocTest/api/T.java", "-private");
     }
 }

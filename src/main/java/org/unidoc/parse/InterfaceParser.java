@@ -34,7 +34,7 @@ public class InterfaceParser extends VoidVisitorAdapter<Void> {
             id.setJavadocComment(interfaceDocumentation.getJavadoc());
             expr.get().remove();
         } else {
-            log.info("Interface: " + id.getNameAsString() + ", is not annotated with @" + InterfaceDoc.class.getSimpleName());
+            log.info(id.getNameAsString() + ", is not annotated with @" + InterfaceDoc.class.getSimpleName());
         }
     }
 }

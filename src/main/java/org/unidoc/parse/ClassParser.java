@@ -35,7 +35,7 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
             cd.setJavadocComment(classDocumentation.getJavadoc());
             expr.get().remove();
         } else {
-            log.info("Class: " + cd.getNameAsString() + ", is not annotated with @" + ClassDoc.class.getSimpleName());
+            log.info(cd.getNameAsString() + ", is not annotated with @" + ClassDoc.class.getSimpleName());
         }
     }
 }

@@ -55,8 +55,8 @@
                             <version>4.5.2</version>
                         </path>
                     </annotationProcessorPaths>
-                    <source>9</source>
-                    <target>9</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>
