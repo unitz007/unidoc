@@ -1,10 +1,10 @@
 # Unidoc
 
-Generates javadoc using annotations.
+Provides annotations for documenting java source codes.
 
 ## Description
 
-Unidoc adds an alternative to how to document java source codes as it introduces the use of element-type-specific annotations. 
+Unidoc adds an alternative to documenting java source codes as it introduces the use of element-type-specific annotations. 
 
 The annotations include:
 
