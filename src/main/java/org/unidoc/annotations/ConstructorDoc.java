@@ -5,43 +5,41 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ *
+ * for documenting a constructor declaration
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.CONSTRUCTOR)
 public @interface ConstructorDoc {
 
     /**
-     *
      * @return description
      */
     String description() default "";
 
     /**
-     *
-     * @return name(s) of parameter(s), type and description
+     * @return version
      */
-    String[] params() default "";
+    String version() default "";
 
     /**
-     *
      * @return associated links and references
      */
     String see() default "";
 
     /**
-     *
      * @return when constructor was created
      */
     String since() default "";
 
     /**
-     *
      * @return thrown exception(s) with description
      */
     String[] exceptions() default "";
 
     /**
      * declares that the constructor shouldn't be documented
-     *
      */
     String hidden() default "";
 
