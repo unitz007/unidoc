@@ -27,7 +27,6 @@ import java.io.IOException;
         version = "1.0.0",
         see = "<a href=\"URL#value\">label</a>",
         since = "2020-11-06",
-        serial = "include",
         hidden = "hghh",
         deprecated = "no"
 )
